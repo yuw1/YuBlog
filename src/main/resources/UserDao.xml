@@ -2,16 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.net.wangshifu.dao.UserDao">
-    <select id="getUser" parameterType="cn.net.wangshifu.model.User" resultType="cn.net.wangshifu.model.User">
-        SELECT * FROM user WHERE nickname=#{nickname} AND password_sha1_nickname=#{password}
+    <select id="selectUserById" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User" resultType="java.lang.String">
+        <![CDATA[
+          {call user_select_by_id(
+            #{id,mode=IN,jdbcType=INTEGER},#{nickname,mode=OUT,jdbcType=VARCHAR}
+          )}
+        ]]>
     </select>
-    <insert id="addUser" parameterType="cn.net.wangshifu.model.User" flushCache="true">
-        call user_adder(#{nickname},#{password})
-    </insert>
-    <update id="updateUser" parameterType="cn.net.wangshifu.model.User">
-        UPDATE user SET password_sha1_nickname=#{password} WHERE id=#{id}
+    <select id="addUser" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User" resultType="java.lang.Integer">
+        <![CDATA[
+          {call user_add(
+            #{nickname,mode=IN,jdbcType=VARCHAR},#{password,mode=IN,jdbcType=VARCHAR},#{id,mode=OUT,jdbcType=INTEGER}
+          )}
+        ]]>
+    </select>
+    <select id="authUser" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User" resultType="java.lang.Integer">
+        <![CDATA[
+          {call user_auth(
+            #{id,mode=IN,jdbcType=INTEGER},#{password,mode=IN,jdbcType=VARCHAR},#{token,mode=OUT,jdbcType=INTEGER}
+          )}
+        ]]>
+    </select>
+    <update id="updateUser"  statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User">
+        <![CDATA[
+          {call user_update(
+            #{id,mode=IN,jdbcType=INTEGER},#{nickname,mode=IN,jdbcType=VARCHAR},#{password,mode=IN,jdbcType=VARCHAR}
+          )}
+        ]]>
     </update>
-    <delete id="deleteUser" parameterType="int">
-        DELETE FROM user WHERE id=#{id}
+    <delete id="deleteUser" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User">
+        <![CDATA[
+          {call user_delete(
+            #{id,mode=IN,jdbcType=INTEGER}
+          )}
+        ]]>
     </delete>
 </mapper>

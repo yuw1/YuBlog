@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.wangshifu.dao.ArticleDao">
+    <insert id="addArticle" flushCache="true" parameterType="cn.net.wangshifu.model.Article">
+        INSERT INTO article(content,articleId,author_id) VALUES(#{content},#{articleId},#{authorId});
+    </insert>
+</mapper>

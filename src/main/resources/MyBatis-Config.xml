@@ -5,5 +5,7 @@
 <configuration>
     <mappers>
         <mapper resource="UserDao.xml"/>
+        <mapper resource="ArticleDao.xml"/>
+        <mapper resource="CommentDao.xml"/>
     </mappers>
 </configuration>

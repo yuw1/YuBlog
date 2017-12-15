@@ -4,6 +4,15 @@ public class User {
     private int id;
     private String nickname;
     private String password;
+    private int token;
+
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
+    }
 
     public int getId() {
         return id;
