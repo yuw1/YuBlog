@@ -1,10 +1,104 @@
+create table article
+(
+  id int auto_increment
+    primary key,
+  content varchar(20000) null,
+  author_id int null,
+  author_nickname varchar(20) null,
+  lase_modified timestamp default CURRENT_TIMESTAMP not null
+)
+;
+
+create index article_user_id_fk
+  on article (author_id)
+;
+
+create trigger before_article_add
+before INSERT on article
+for each row
+  BEGIN
+    SET NEW.author_nickname = (
+      SELECT nickname FROM user WHERE id = NEW.author_id
+    );
+  END;
+
+create trigger after_article_add
+after INSERT on article
+for each row
+  BEGIN
+    INSERT INTO user_article(user_id, article_id) VALUES (NEW.author_id, NEW.id);
+  END;
+
+create table comment
+(
+  id int auto_increment
+    primary key,
+  comment varchar(100) null,
+  article_id int null,
+  user_id int null,
+  user_nickname varchar(20) null,
+  constraint fk_comment_article
+  foreign key (article_id) references article (id)
+)
+;
+
+create index fk_comment_article
+  on comment (article_id)
+;
+
+create index fk_comment_user
+  on comment (user_id)
+;
+
+create trigger comment_add
+before INSERT on comment
+for each row
+  BEGIN
+    SET NEW.user_nickname = (
+      SELECT nickname FROM user WHERE id = NEW.user_id
+    );
+  END;
+
 create table user
 (
-	id int auto_increment
-		primary key,
-	nickname varchar(20) default '' not null,
-	password_sha1_nickname varchar(60) not null
-);
+  id int auto_increment
+    primary key,
+  nickname varchar(20) default '' not null,
+  password_sha1_nickname varchar(60) not null,
+  last_modified timestamp default CURRENT_TIMESTAMP not null
+)
+;
+
+alter table article
+  add constraint article_user_id_fk
+foreign key (author_id) references user (id)
+;
+
+alter table comment
+  add constraint fk_comment_user
+foreign key (user_id) references user (id)
+;
+
+create table user_article
+(
+  id int auto_increment
+    primary key,
+  user_id int null,
+  article_id int null,
+  constraint user_article_ibfk_1
+  foreign key (user_id) references user (id),
+  constraint user_article_ibfk_2
+  foreign key (article_id) references article (id)
+)
+;
+
+create index article_id
+  on user_article (article_id)
+;
+
+create index user_id
+  on user_article (user_id)
+;
 
 create procedure user_add (IN `_nickname` varchar(20), IN `_password` varchar(30), OUT `_id` int)
   BEGIN
@@ -33,7 +127,7 @@ create procedure user_auth (IN `_id` int, IN `_password` varchar(30), OUT `_toke
     END IF;
   END;
 
-create procedure user_delete (IN _id int)
+create procedure user_delete (IN `_id` int)
   BEGIN
     DELETE FROM user WHERE id = _id ;
   END;
