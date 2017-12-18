@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/css/amazeui.css">
+    <link rel="stylesheet" href="/css/amazeui.flat.css">
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/amazeui.js" type="text/javascript"></script>
+    <script src="/js/handlebars.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <header class="am-topbar am-topbar-fixed-top">
+        <h1 class="am-topbar-brand">博客&nbsp;&nbsp;<br/></h1>
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="#">首页</a></li>
+                <li><a href="#">项目</a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        下拉 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li class="am-dropdown-header">标题</li>
+                        <li><a href="#">1. 去月球</a></li>
+                        <li class="am-active"><a href="#">2. 去火星</a></li>
+                        <li><a href="#">3. 还是回地球</a></li>
+                        <li class="am-disabled"><a href="#">4. 下地狱</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="#">5. 桥头一回首</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="am-topbar-right">
+                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</button>
+            </div>
+            <div class="am-topbar-right">
+                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm" data-am-offcanvas="{target: '#doc-oc-demo2', effect: 'push'}">注册</button>
+            </div>
+        </div>
+    </header>
+    <ol class="am-breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">分类</a></li>
+        <li class="am-active">内容</li>
+    </ol>
+    <hr/>
+    <div class="am-g">
+        <div class="am-u-lg-2">
+            <div>
+                <ul>
+                    <li>你好</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="am-u-lg-10">
+            <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                <div class="am-list-news-bd">
+                    <ul class="am-list">
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">苍天已死</a>
+                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">公无渡河</a>
+                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">苍天已死</a>
+                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">公无渡河</a>
+                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">苍天已死</a>
+                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">公无渡河</a>
+                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">苍天已死</a>
+                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">公无渡河</a>
+                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">苍天已死</a>
+                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
+                        </li>
+                        <li class="am-g am-list-item-desced">
+                            <a href="#" class="am-list-item-hd">公无渡河</a>
+                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <div class="am-footer-miscs ">
+            <p>Copyright©王宇</p>
+        </div>
+    </footer>
+    <!-- 侧边栏内容 -->
+    <div id="doc-oc-demo2" class="am-offcanvas">
+        <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+            <div class="am-offcanvas-content">
+                <ul class="am-nav">
+                    <li><a href="#">永远的蝴蝶</a></li>
+                    <li class="am-nav-header">目录</li>
+                    <li><a href="#">原文</a></li>
+                    <li><a href="#">作者简介</a></li>
+                    <li><a href="#">文章赏析</a></li>
+                    <li><a href="#">读者评论</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+        <a href="#top" title="回到顶部">
+            <span class="am-gotop-title">回到顶部</span>
+            <i class="am-gotop-icon am-icon-chevron-up"></i>
+        </a>
+    </div>
+</body>
+</html>
