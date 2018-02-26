@@ -1,5 +1,14 @@
+# 简介
+
 本博客框架基于Spring+Spring MVC+MyBatis框架，使用Tomcat容器，MySQL数据库，提供基础的博客功能。
 
+登录功能使用Spring Security实现。
+
+# 下载
+## 安装包下载
+[yublog-v1.0.0.tar.gz](https://gitee.com/imwangyu/YuBlogSystem/attach_files/download?i=119597&u=http%3A%2F%2Ffiles.git.oschina.net%2Fgroup1%2FM00%2F02%2FFA%2FPaAvDFqTwZOAK3lZAUlreh_ORv41618.gz%3Ftoken%3Dfb2944942596236530f6e177b06fe01d%26ts%3D1519634593%26attname%3Dyublog-v1.0.0.tar.gz)
+
+# 功能介绍
 ## 登录页面
 
 ![登录页面](https://gitee.com/uploads/images/2018/0226/124311_0a68a13d_1366365.png "屏幕截图.png")
