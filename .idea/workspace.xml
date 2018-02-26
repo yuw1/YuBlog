@@ -6,20 +6,17 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5eb34807-8713-4007-a14e-242ca02383bc" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/web/css/amazeui.min.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/web/js/amazeui.min.js" />
+    <list default="true" id="5eb34807-8713-4007-a14e-242ca02383bc" name="Default" comment="v1.0.0">
+      <change beforePath="" afterPath="$PROJECT_DIR$/web/img/favicon.ico" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a127817b-8369-450f-bab9-60ae70f489b2.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/a127817b-8369-450f-bab9-60ae70f489b2.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a127817b-8369-450f-bab9-60ae70f489b2/storage_v2/_src_/schema/blog.oi8uAA.zip" afterPath="$PROJECT_DIR$/.idea/dataSources/a127817b-8369-450f-bab9-60ae70f489b2/storage_v2/_src_/schema/blog.oi8uAA.zip" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/AdminController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/AdminController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/ArticleController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/ArticleController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/BlogController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/BlogController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/CommentController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/CommentController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/IndexController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/IndexController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/LoginController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/OwnerController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/OwnerController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/UserController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/util/PropertiesUtil.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/test.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" afterPath="$PROJECT_DIR$/src/main/resources/database.properties" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/database.properties" afterPath="$PROJECT_DIR$/web/WEB-INF/database.properties" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/403.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/403.html" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/404.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/404.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/admin_article.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/admin_article.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/admin_catalog.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/admin_catalog.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/admin_comment.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/admin_comment.html" />
@@ -27,8 +24,6 @@
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/admin_user_disable.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/admin_user_disable.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/article.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/article.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/blog.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/blog.html" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/footer.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/footer.html" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/header.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/header.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/index.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/index.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/login.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/login.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/owner_admin_list.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/owner_admin_list.html" />
@@ -37,8 +32,7 @@
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/register_success.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/register_success.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/user_info.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/user_info.html" />
       <change beforePath="$PROJECT_DIR$/web/WEB-INF/page/write_article.html" afterPath="$PROJECT_DIR$/web/WEB-INF/page/write_article.html" />
-      <change beforePath="$PROJECT_DIR$/web/css/amazeui.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/web/js/amazeui.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web/js/jquery.i18n.properties-1.0.9.js" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -68,81 +62,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/login.html">
+      <file leaf-file-name="dataSources.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/dataSources.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="57" column="42" lean-forward="false" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="owner_admin_request.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/owner_admin_request.html">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="112" column="12" lean-forward="false" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="12" />
+            <state relative-caret-position="0">
+              <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/database.properties">
+      <file leaf-file-name="admin_catalog.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_catalog.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+            <state relative-caret-position="486">
+              <caret line="180" column="9" lean-forward="false" selection-start-line="180" selection-start-column="9" selection-end-line="180" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/register.html">
+      <file leaf-file-name="blog.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/blog.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="73" column="21" lean-forward="false" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+            <state relative-caret-position="72">
+              <caret line="81" column="20" lean-forward="false" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register_success.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/register_success.html">
+      <file leaf-file-name="encodings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="45" column="22" lean-forward="false" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/LoginController.java">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="98" column="5" lean-forward="false" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin_article.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_article.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="76" column="109" lean-forward="false" selection-start-line="76" selection-start-column="78" selection-end-line="76" selection-end-column="109" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_info.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/user_info.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2996">
-              <caret line="3" column="62" lean-forward="false" selection-start-line="3" selection-start-column="62" selection-end-line="3" selection-end-column="62" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -151,18 +125,38 @@
       <file leaf-file-name="write_article.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/write_article.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="7" column="59" lean-forward="false" selection-start-line="7" selection-start-column="59" selection-end-line="7" selection-end-column="59" />
+            <state relative-caret-position="-963">
+              <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.properties" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/database.properties">
+      <file leaf-file-name="a127817b-8369-450f-bab9-60ae70f489b2.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/dataSources/a127817b-8369-450f-bab9-60ae70f489b2.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+            <state relative-caret-position="-2622">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="YuBlogSystem_war.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/artifacts/YuBlogSystem_war.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="YuBlogSystem_war_exploded.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/artifacts/YuBlogSystem_war_exploded.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -208,12 +202,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/a127817b-8369-450f-bab9-60ae70f489b2/console_28.sql" />
-        <option value="$PROJECT_DIR$/src/main/resources/CatalogDao.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/dao/CatalogDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/ErrorController.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/page/403.html" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/page/404.html" />
         <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/dao/CommentDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/dao/ArticleDao.java" />
         <option value="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" />
@@ -239,26 +228,31 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/IndexController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/OwnerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/AdminController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/ApplicationContext.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/AdminController.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/a127817b-8369-450f-bab9-60ae70f489b2/console.sql" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/a127817b-8369-450f-bab9-60ae70f489b2/console_1.sql" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/page/login.html" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/page/403.html" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/page/404.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/admin_article.html" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/page/admin_catalog.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/admin_comment.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/admin_user.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/admin_user_disable.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/article.html" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/page/blog.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/index.html" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/page/login.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/owner_admin_list.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/owner_admin_request.html" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/page/register.html" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/page/register_success.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/user_info.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/page/write_article.html" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/LoginController.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/page/register_success.html" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/page/register.html" />
         <option value="$PROJECT_DIR$/src/main/resources/database.properties" />
         <option value="$PROJECT_DIR$/web/WEB-INF/database.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/net/wangshifu/test.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/page/admin_catalog.html" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/page/blog.html" />
       </list>
     </option>
   </component>
@@ -306,9 +300,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -367,42 +358,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="wangshifu" type="462c0819:PsiDirectoryNode" />
-              <item name="bo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YuBlogSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YuBlogSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wangshifu" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YuBlogSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YuBlogSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wangshifu" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YuBlogSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YuBlogSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wangshifu" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YuBlogSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YuBlogSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wangshifu" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -421,18 +376,6 @@
               <item name="YuBlogSystem" type="b2602c69:ProjectViewProjectNode" />
               <item name="YuBlogSystem" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YuBlogSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YuBlogSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YuBlogSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YuBlogSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -446,19 +389,22 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="spring" />
-    <property name="nodejs_interpreter_path" value="D:/Program Files/nodejs/node" />
+    <property name="settings.editor.selected.configurable" value="database.data.csv.formats" />
+    <property name="nodejs_interpreter_path" value="node" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.19310345" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/SQL Dialects" value="MySQL" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
@@ -471,11 +417,11 @@
       <recent name="F:\code\java\YuBlogSystem\web\WEB-INF\page" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web/img" />
       <recent name="F:\code\java\YuBlogSystem\web\js" />
       <recent name="F:\code\java\YuBlogSystem\web\css" />
       <recent name="F:\code\java\YuBlogSystem\src\main\resources" />
       <recent name="F:\code\java\YuBlogSystem\web\img" />
-      <recent name="F:\code\java\YuBlogSystem\web\WEB-INF\lib" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -749,9 +695,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.PropertiesUtil" />
-        <item index="1" class="java.lang.String" itemvalue="Application.UserRoleBo" />
-        <item index="2" class="java.lang.String" itemvalue="Application.test" />
+        <item index="0" class="java.lang.String" itemvalue="Application.test" />
+        <item index="1" class="java.lang.String" itemvalue="Application.PropertiesUtil" />
+        <item index="2" class="java.lang.String" itemvalue="Application.UserRoleBo" />
         <item index="3" class="java.lang.String" itemvalue="Application.UserController" />
         <item index="4" class="java.lang.String" itemvalue="Application.CommentController" />
       </list>
@@ -815,6 +761,10 @@
       <workItem from="1519617890390" duration="4325000" />
       <workItem from="1519638115827" duration="2134000" />
       <workItem from="1519642251010" duration="1997000" />
+      <workItem from="1519652151299" duration="2961000" />
+      <workItem from="1519655494496" duration="942000" />
+      <workItem from="1519656566450" duration="413000" />
+      <workItem from="1519657453036" duration="1436000" />
     </task>
     <task id="LOCAL-00001" summary="build user system,already achieved add user.">
       <created>1513228238066</created>
@@ -869,13 +819,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="247950000" />
+    <option name="totallyTimeSpent" value="253702000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1922" height="1092" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.44322917" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24872579" sideWeight="0.4640625" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -886,16 +837,16 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.49739584" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32241014" sideWeight="0.26458332" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32212028" sideWeight="0.25833333" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.55677086" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24872579" sideWeight="0.5359375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22135417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22135417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -904,7 +855,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3452055" sideWeight="0.8235677" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34454638" sideWeight="0.8171875" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -926,210 +877,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/dao/AdminApplyDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/bo/AdminApplyBo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="13" column="24" lean-forward="false" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/bo/ArticleBo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/bo/CommentBo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/bo/UserBo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/bo/UserRoleBo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="54" lean-forward="false" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ArticleDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="33" column="66" lean-forward="false" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
-          <folding>
-            <marker date="1519618612220" expanded="true" signature="363:507" ph="INSERT INTO article... " />
-            <marker date="1519618612220" expanded="true" signature="624:722" ph="SELECT id, t... article" />
-            <marker date="1519618612220" expanded="true" signature="1505:1806" ph="SELECT id, t... article" />
-            <marker date="1519618612220" expanded="true" signature="1505:1811" ph="SELECT id, t... article" />
-            <marker date="1519618612220" expanded="true" signature="1935:2081" ph="SELECT id, t... article" />
-            <marker date="1519618612220" expanded="true" signature="1935:2109" ph="SELECT id, t... article" />
-            <marker date="1519618612220" expanded="true" signature="2188:2332" ph="SELECT id, t... article" />
-            <marker date="1519618612220" expanded="true" signature="2422:2471" ph="DELETE FROM article... " />
-            <marker date="1519618612220" expanded="true" signature="2551:2594" ph="DELETE FROM article... " />
-            <marker date="1519618612220" expanded="true" signature="2650:2771" ph="UPDATE article... " />
-            <marker date="1519618612220" expanded="true" signature="2855:2908" ph="SELECT autho... article" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/AdminApplyDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="96" lean-forward="false" selection-start-line="5" selection-start-column="96" selection-end-line="5" selection-end-column="96" />
-          <folding>
-            <marker date="1519618612132" expanded="true" signature="291:354" ph="SELECT id, u... admin_apply" />
-            <marker date="1519618612132" expanded="true" signature="291:379" ph="SELECT id, u... admin_apply" />
-            <marker date="1519618612132" expanded="true" signature="1026:1084" ph="SELECT COUNT... admin_apply" />
-            <marker date="1519618612132" expanded="true" signature="1163:1212" ph="DELETE FROM admin_apply... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/CatalogDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="52" lean-forward="false" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
-          <folding>
-            <marker date="1519618614720" expanded="true" signature="288:332" ph="SELECT id, n... catalog_tree" />
-            <marker date="1519618614720" expanded="true" signature="641:728" ph="INSERT INTO catalog_tree... " />
-            <marker date="1519618614720" expanded="true" signature="784:879" ph="UPDATE catalog_tree... " />
-            <marker date="1519618614720" expanded="true" signature="939:987" ph="DELETE FROM catalog_tree... " />
-            <marker date="1519618614720" expanded="true" signature="1066:1134" ph="SELECT id, n... catalog_tree" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/CommentDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="36" column="53" lean-forward="false" selection-start-line="36" selection-start-column="53" selection-end-line="36" selection-end-column="53" />
-          <folding>
-            <marker date="1519618614390" expanded="true" signature="311:400" ph="INSERT INTO comment... " />
-            <marker date="1519618614390" expanded="true" signature="1149:1261" ph="select id, c... comment" />
-            <marker date="1519618614390" expanded="true" signature="1149:1297" ph="select id, c... comment" />
-            <marker date="1519618614390" expanded="true" signature="1407:1547" ph="select id, c... comment" />
-            <marker date="1519618614390" expanded="true" signature="1407:1575" ph="select id, c... comment" />
-            <marker date="1519618614390" expanded="true" signature="1653:1799" ph="select id, c... comment" />
-            <marker date="1519618614390" expanded="true" signature="1887:1932" ph="DELETE FROM comment... " />
-            <marker date="1519618614390" expanded="true" signature="2012:2055" ph="DELETE FROM comment... " />
-            <marker date="1519618614390" expanded="true" signature="2138:2189" ph="SELECT user_... comment" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1000">
-          <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
-          <folding>
-            <marker date="1519618614103" expanded="true" signature="285:341" ph="SELECT id, u... user" />
-            <marker date="1519618614103" expanded="true" signature="1267:1345" ph="UPDATE user... " />
-            <marker date="1519618614103" expanded="true" signature="1452:1507" ph="UPDATE user... " />
-            <marker date="1519618614103" expanded="true" signature="1833:2042" ph="SELECT id, u... user" />
-            <marker date="1519618614103" expanded="true" signature="2121:2178" ph="SELECT id, u... user" />
-            <marker date="1519618614103" expanded="true" signature="2121:2206" ph="SELECT id, u... user" />
-            <marker date="1519618614103" expanded="true" signature="2280:2328" ph="UPDATE user... " />
-            <marker date="1519618614103" expanded="true" signature="2401:2449" ph="UPDATE user... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserRoleDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="9" lean-forward="false" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-          <folding>
-            <marker date="1519056372603" expanded="true" signature="286:349" ph="INSERT INTO user_role... " />
-            <marker date="1519056372603" expanded="true" signature="423:549" ph="SELECT DISTI... user_role" />
-            <marker date="1519056372603" expanded="true" signature="498:548" ph="SELECT id FR... user_role" />
-            <marker date="1519056372603" expanded="true" signature="627:694" ph="DELETE FROM user_role... " />
-            <marker date="1519056372603" expanded="true" signature="775:952" ph="SELECT DISTI... user_role" />
-            <marker date="1519056372603" expanded="true" signature="860:942" ph="SELECT DISTI... user_role" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="7" column="76" lean-forward="false" selection-start-line="7" selection-start-column="76" selection-end-line="7" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/dao/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/66033c40/a127817b-8369-450f-bab9-60ae70f489b2/blog.user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/66033c40/a127817b-8369-450f-bab9-60ae70f489b2/blog.user_role">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/ResourceBundle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="1833" column="48" lean-forward="false" selection-start-line="1833" selection-start-column="33" selection-end-line="1833" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/ErrorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/ArticleController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1820">
           <caret line="115" column="56" lean-forward="false" selection-start-line="115" selection-start-column="56" selection-end-line="115" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/BlogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1040">
-          <caret line="72" column="56" lean-forward="false" selection-start-line="72" selection-start-column="56" selection-end-line="72" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
@@ -1177,29 +933,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5320">
-          <caret line="293" column="47" lean-forward="false" selection-start-line="293" selection-start-column="47" selection-end-line="293" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ApplicationContext.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="54" column="11" lean-forward="false" selection-start-line="54" selection-start-column="11" selection-end-line="54" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/css/amazeui.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1207,173 +944,211 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/403.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="9" lean-forward="true" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/404.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-580">
-          <caret line="16" column="9" lean-forward="true" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_catalog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3660">
-          <caret line="183" column="77" lean-forward="false" selection-start-line="183" selection-start-column="77" selection-end-line="183" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_comment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="97" column="36" lean-forward="false" selection-start-line="97" selection-start-column="36" selection-end-line="97" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="101" column="29" lean-forward="false" selection-start-line="101" selection-start-column="21" selection-end-line="101" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_user_disable.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="109" column="25" lean-forward="false" selection-start-line="109" selection-start-column="17" selection-end-line="109" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/article.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="29" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/blog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1596">
-          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/footer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1752">
-          <caret line="15" column="56" lean-forward="false" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="46" lean-forward="false" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/owner_admin_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="46" lean-forward="false" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/owner_admin_request.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="112" column="12" lean-forward="false" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/user_info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2996">
-          <caret line="3" column="62" lean-forward="false" selection-start-line="3" selection-start-column="62" selection-end-line="3" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/write_article.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="59" lean-forward="false" selection-start-line="7" selection-start-column="59" selection-end-line="7" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_article.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="76" column="109" lean-forward="false" selection-start-line="76" selection-start-column="78" selection-end-line="76" selection-end-column="109" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
+        <state relative-caret-position="1955">
           <caret line="98" column="5" lean-forward="false" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/register_success.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/AdminApplyDao.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="45" column="22" lean-forward="false" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
+        <state relative-caret-position="100">
+          <caret line="5" column="96" lean-forward="false" selection-start-line="5" selection-start-column="96" selection-end-line="5" selection-end-column="96" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/register.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/ApplicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="73" column="21" lean-forward="false" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+        <state relative-caret-position="510">
+          <caret line="54" column="11" lean-forward="false" selection-start-line="54" selection-start-column="11" selection-end-line="54" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="7" column="76" lean-forward="false" selection-start-line="7" selection-start-column="76" selection-end-line="7" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2501">
+          <caret line="248" column="45" lean-forward="false" selection-start-line="248" selection-start-column="45" selection-end-line="248" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/controller/BlogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="72" column="56" lean-forward="false" selection-start-line="72" selection-start-column="56" selection-end-line="72" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/c0896ee7/a127817b-8369-450f-bab9-60ae70f489b2/blog.catalog_tree">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a127817b-8369-450f-bab9-60ae70f489b2/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="33" lean-forward="true" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a127817b-8369-450f-bab9-60ae70f489b2/console_1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-security.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="29" />
+          <folding>
+            <marker date="1519652087471" expanded="true" signature="2577:2633" ph="select id ,p... user" />
+            <marker date="1519652087471" expanded="true" signature="2706:2749" ph="select id, r... user_role" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/403.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="45" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/404.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="45" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_article.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="4" lean-forward="true" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_comment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_user_disable.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/article.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="56" lean-forward="false" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="45" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="57" column="42" lean-forward="false" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+        <state relative-caret-position="115">
+          <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/owner_admin_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/owner_admin_request.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/register_success.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/user_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/database.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
+        <state relative-caret-position="46">
           <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
           <folding />
         </state>
@@ -1381,8 +1156,128 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/database.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        <state relative-caret-position="69">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dataSources.local.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/sqldialects.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/artifacts/YuBlogSystem_war.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/artifacts/YuBlogSystem_war_exploded.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dataSources/a127817b-8369-450f-bab9-60ae70f489b2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2622">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dataSources.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/net/wangshifu/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/write_article.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-963">
+          <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/admin_catalog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="180" column="9" lean-forward="false" selection-start-line="180" selection-start-column="9" selection-end-line="180" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/page/blog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="81" column="20" lean-forward="false" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1450,6 +1345,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

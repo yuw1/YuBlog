@@ -246,7 +246,7 @@ public class AdminController {
             context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
             CatalogDao catalogDao = (CatalogDao) context.getBean("catalogDao");
             catalogDao.addCatalog(subCatalogName, Integer.parseInt(parentCatalogId));
-
+            System.out.println(subCatalogName);
             model.setViewName("redirect:/admin?page=catalog");
         } else {
             model.setViewName("redirect:/login?notlogin");
