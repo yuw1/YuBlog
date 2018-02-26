@@ -1,10 +1,7 @@
 package cn.net.wangshifu.controller;
 
-import cn.net.wangshifu.bo.AdminApplyBo;
 import cn.net.wangshifu.dao.CommentDao;
-import cn.net.wangshifu.dao.UserDao;
 import cn.net.wangshifu.model.Comment;
-import cn.net.wangshifu.model.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 
 @Controller
 public class CommentController {

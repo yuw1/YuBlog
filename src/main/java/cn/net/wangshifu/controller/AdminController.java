@@ -27,8 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static cn.net.wangshifu.util.PropertiesUtil.blogName;
+import java.util.ResourceBundle;
 
 @Controller
 public class AdminController {
@@ -62,6 +61,8 @@ public class AdminController {
                 model.addObject("hadApplyAdmin", "false");
             }
 
+            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+            String blogName = rb.getString("blog.name");
             model.addObject("blogName", blogName);
 
             if (page.equals("user")) {

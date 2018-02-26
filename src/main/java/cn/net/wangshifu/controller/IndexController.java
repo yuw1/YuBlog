@@ -20,10 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
-import static cn.net.wangshifu.util.PropertiesUtil.blogMinorSlogen;
-import static cn.net.wangshifu.util.PropertiesUtil.blogName;
-import static cn.net.wangshifu.util.PropertiesUtil.blogSlogen;
 
 @Controller
 public class IndexController {
@@ -70,8 +68,10 @@ public class IndexController {
             } else {
                 model.addObject("hadApplyAdmin", "false");
             }
-            model.addObject("blogName", blogName);
-
+            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+            String blogName = rb.getString("blog.name");
+            String blogSlogen = rb.getString("blog.slogen");
+            String blogMinorSlogen = rb.getString("blog.minor_slogen");
             model.addObject("blogName", blogName);
             model.addObject("blogSlogen", blogSlogen);
             model.addObject("blogMinorSlogen", blogMinorSlogen);

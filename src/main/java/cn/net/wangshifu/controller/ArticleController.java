@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
-import static cn.net.wangshifu.util.PropertiesUtil.blogName;
 
 @Controller
 public class ArticleController {
@@ -61,7 +61,7 @@ public class ArticleController {
             model.addObject("comments", comments);
 
             if (msg != null) {
-                model.addObject("msg", "评论发表成功");
+                model.addObject("msg", msg);
             }
 
 
@@ -71,6 +71,8 @@ public class ArticleController {
                 model.addObject("hadApplyAdmin", "false");
             }
 
+            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+            String blogName = rb.getString("blog.name");
             model.addObject("blogName", blogName);
 
             model.setViewName("article.html");
@@ -109,6 +111,9 @@ public class ArticleController {
             } else {
                 model.addObject("hadApplyAdmin", "false");
             }
+
+            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+            String blogName = rb.getString("blog.name");
             model.addObject("blogName", blogName);
 
             model.setViewName("write_article.html");

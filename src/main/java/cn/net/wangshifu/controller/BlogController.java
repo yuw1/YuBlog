@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
-import static cn.net.wangshifu.util.PropertiesUtil.blogName;
 
 @Controller
 public class BlogController {
@@ -68,6 +68,9 @@ public class BlogController {
             } else {
                 model.addObject("hadApplyAdmin", "false");
             }
+
+            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+            String blogName = rb.getString("blog.name");
             model.addObject("blogName", blogName);
 
             model.setViewName("blog.html");

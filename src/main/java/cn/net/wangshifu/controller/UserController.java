@@ -7,9 +7,6 @@ import cn.net.wangshifu.dao.UserDao;
 import cn.net.wangshifu.model.Article;
 import cn.net.wangshifu.model.Comment;
 import cn.net.wangshifu.model.User;
-import cn.net.wangshifu.util.CatalogUtil;
-import cn.net.wangshifu.dao.CatalogDao;
-import cn.net.wangshifu.model.Catalog;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.context.ApplicationContext;
@@ -29,8 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
-import static cn.net.wangshifu.util.PropertiesUtil.blogName;
 
 
 @Controller
@@ -84,6 +79,9 @@ public class UserController {
             } else {
                 model.addObject("hadApplyAdmin", "false");
             }
+
+            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+            String blogName = rb.getString("blog.name");
             model.addObject("blogName", blogName);
 
             if (page == null) {

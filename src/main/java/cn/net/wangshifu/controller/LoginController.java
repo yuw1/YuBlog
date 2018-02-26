@@ -13,10 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ResourceBundle;
 
-import static cn.net.wangshifu.util.PropertiesUtil.*;
 
 @Controller
 public class
@@ -34,8 +32,8 @@ LoginController {
         if (error != null) {
             HttpSession session = request.getSession();
             Exception reason = (Exception) session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
-            if (reason.getMessage().equals("User is disabled")) {
-                model.addObject("error", "账号已被封禁");
+            if (reason.getMessage() != null) {
+                model.addObject("error", reason.getMessage());
             } else {
                 model.addObject("error", "请输入正确的用户名和密码");
             }
@@ -50,7 +48,12 @@ LoginController {
             model.addObject("msg", "密码修改成功，请重新登录");
         }
 
+        ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+        String blogName = rb.getString("blog.name");
         model.addObject("blogName", blogName);
+        String blogLoginSlogen = rb.getString("blog.login.slogen");
+        String blogLoginMinorSlogen = rb.getString("blog.login.minor_slogen");
+        String blogLoginSencondMinorSlogen = rb.getString("blog.login.second_minor_slogen");
         model.addObject("blogLoginSlogen", blogLoginSlogen);
         model.addObject("blogLoginMinorSlogen", blogLoginMinorSlogen);
         model.addObject("blogLoginSencondMinorSlogen", blogLoginSencondMinorSlogen);
@@ -63,6 +66,12 @@ LoginController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register_page() {
         ModelAndView model = new ModelAndView();
+
+        ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
+        String blogName = rb.getString("blog.name");
+        String blogRegisterSlogen = rb.getString("blog.register.slogen");
+        String blogRegisterMinorSlogen = rb.getString("blog.register.minor_slogen");
+        String blogRegisterSencondMinorSlogen = rb.getString("blog.register.second_minor_slogen");
         model.addObject("blogName", blogName);
         model.addObject("blogRegisterSlogen", blogRegisterSlogen);
         model.addObject("blogRegisterMinorSlogen", blogRegisterMinorSlogen);

@@ -3,14 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>注册成功</title>
+    <link rel="stylesheet" href="/css/amazeui.min.css"/>
+    <style>
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 200%;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .header p {
+            font-size: 14px;
+        }
+
+        .error {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            color: #a94442;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+        }
+
+        .msg {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            color: #31708f;
+            background-color: #d9edf7;
+            border: 1px solid #bce8f1;
+        }
+    </style>
 </head>
 <body>
-<h3>注册成功</h3>
-<h4>账号：
-    <div class="id" th:class="${id}? 'show id' : 'hide'" th:text="${id}"></div>
-</h4>
-<h4>用户名：
-    <div class="username" th:class="${username}? 'show username' : 'hide'" th:text="${username}"></div>
-</h4>
+<header class="header">
+    <div class="am-g">
+        <h1>注册成功</h1>
+    </div>
+    <hr/>
+</header>
+<section class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <hr>
+        <div class="am-form">
+            <label for="id">账号:</label>
+            <input type="text" name="id" id="id" th:value="${id}" readonly="readonly">
+            <br>
+            <label for="username">用户名:</label>
+            <input type="text" name="username" id="username" th:value="${username}" readonly="readonly">
+            <br>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <br/>
+            <div class="am-cf">
+                <a class="am-btn am-btn-primary am-btn-sm am-fl" href="/login">去登录</a>
+            </div>
+        </div>
+        <hr>
+    </div>
+</section>
+<div th:include="footer.html"></div>
 </body>
 </html>
