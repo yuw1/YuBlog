@@ -10,6 +10,9 @@
 ## 文章列表
 ![文章列表](https://gitee.com/uploads/images/2018/0226/125953_23edd5f3_1366365.png "屏幕截图.png")
 
+## 文章页面
+![文章页面](https://gitee.com/uploads/images/2018/0226/134448_8f24af90_1366365.png "屏幕截图.png")
+
 ## 编辑页面
 ![编辑页面](https://gitee.com/uploads/images/2018/0226/130055_27213b29_1366365.png "屏幕截图.png")
 
