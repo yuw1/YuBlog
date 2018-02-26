@@ -19,3 +19,12 @@
 点击资料打开侧边栏
 
 ![侧边栏](https://gitee.com/uploads/images/2018/0226/130250_05f826d4_1366365.png "屏幕截图.png")
+
+## 个人资料页面
+![个人资料](https://gitee.com/uploads/images/2018/0226/130531_d985cab7_1366365.png "屏幕截图.png")
+
+## 管理员页面
+![管理员页面](https://gitee.com/uploads/images/2018/0226/132021_bb05d23f_1366365.png "屏幕截图.png")
+
+## 站长页面
+![站长页面](https://gitee.com/uploads/images/2018/0226/132052_5e61a0a1_1366365.png "屏幕截图.png")
