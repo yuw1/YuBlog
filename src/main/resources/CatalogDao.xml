@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.wangshifu.dao.CatalogDao">
+    <select id="selectAllCatalog" flushCache="true" resultMap="result">
+        SELECT id, name, parent_id FROM catalog_tree;
+    </select>
+    <resultMap id="result" type="cn.net.wangshifu.model.Catalog">
+        <result column="id" property="id"></result>
+        <result column="name" property="name"></result>
+        <result column="parent_id" property="parentId"></result>
+    </resultMap>
+    <insert id="addCatalog">
+        INSERT INTO catalog_tree(name, parent_id) VALUE (#{subCatalogName}, #{parentCatalogId});
+    </insert>
+    <update id="renameCatalog">
+        UPDATE catalog_tree SET catalog_tree.name = #{catalogName} WHERE catalog_tree.id = #{catalogId};
+    </update>
+    <delete id="deleteCatalogById">
+        DELETE FROM catalog_tree WHERE id = #{catalogId};
+    </delete>
+    <select id="selectCatalogById" resultMap="result">
+        SELECT id, name, parent_id FROM catalog_tree WHERE id = #{catalogId};
+    </select>
+</mapper>

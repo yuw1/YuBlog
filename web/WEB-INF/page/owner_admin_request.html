@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>站长管理</title>
+    <link rel="stylesheet" href="/css/amazeui.css"/>
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/amazeui.js" type="text/javascript"></script>
+    <style>
+        .yu-main {
+            padding-top: 0px;
+        }
+    </style>
+</head>
+<body>
+<div th:include="header.html"></div>
+
+<div class="am-cf admin-main yu-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="am-list admin-sidebar-list">
+                <li><a href="#"><span class="am-icon-table"></span> 管理员权限申请成员</a></li>
+                <li><a href="owner?page=admin-list"><span class="am-icon-table"></span> 管理员名单</a></li>
+            </ul>
+
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>时光静好，与君语；细水流年，与君同。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">管理员申请</strong> /
+                    <small>最近的申请</small>
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <table class="am-table am-table-bd am-table-striped admin-content-table">
+                        <thead>
+                        <tr>
+                            <th>用户ID</th>
+                            <th>用户名</th>
+                            <th>最后申请时间</th>
+                            <th>个人资料</th>
+                            <th>管理</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="adminApply : ${adminApplies}">
+                            <td th:text="${adminApply.getUserId()}"></td>
+                            <td th:text="${adminApply.getUserName()}"></td>
+                            <td th:text="${adminApply.getLastApplyTime()}"></td>
+                            <td><a th:href="'/user?userId=' + ${adminApply.getUserId()}"
+                                   class="am-btn am-btn-primary am-btn-sm">查看</a></td>
+                            <td>
+                                <div class="am-dropdown" data-am-dropdown>
+                                    <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle"
+                                            data-am-dropdown-toggle><span class="am-icon-cog"></span> <span
+                                            class="am-icon-caret-down"></span></button>
+                                    <ul class="am-dropdown-content">
+                                        <li>
+                                            <form action="/owner-passAdminApply?passAdminApply=true" method="post">
+                                                <input type="hidden" name="user-id"
+                                                       th:value="${adminApply.getUserId()}">
+                                                <input type="hidden" th:name="${_csrf.parameterName}"
+                                                       th:value="${_csrf.token}"/>
+                                                <input class="am-btn am-btn-primary am-btn-sm" type="submit"
+                                                       th:value="同意">
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form action="/owner-passAdminApply?passAdminApply=false" method="post">
+                                                <input type="hidden" name="user-id"
+                                                       th:value="${adminApply.getUserId()}">
+                                                <input type="hidden" th:name="${_csrf.parameterName}"
+                                                       th:value="${_csrf.token}"/>
+                                                <input class="am-btn am-btn-warning am-btn-sm" type="submit"
+                                                       th:value="删除">
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer class="admin-content-footer">
+            <hr>
+            <div th:include="footer.html"></div>
+        </footer>
+    </div>
+    <!-- content end -->
+
+</div>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/js/amazeui.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

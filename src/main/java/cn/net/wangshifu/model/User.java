@@ -2,17 +2,10 @@ package cn.net.wangshifu.model;
 
 public class User {
     private int id;
-    private String nickname;
+    private String username;
     private String password;
-    private int token;
-
-    public int getToken() {
-        return token;
-    }
-
-    public void setToken(int token) {
-        this.token = token;
-    }
+    private String userPic;
+    private int adminApply;
 
     public int getId() {
         return id;
@@ -22,12 +15,12 @@ public class User {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNickname(String nikename) {
-        this.nickname = nikename;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -38,12 +31,31 @@ public class User {
         this.password = password;
     }
 
+    public String getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
+    }
+
+    public int getAdminApply() {
+        return adminApply;
+    }
+
+    public void setAdminApply(int adminApply) {
+        this.adminApply = adminApply;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", nikename='" + nickname + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", userPic='" + userPic + '\'' +
+                ", adminApply=" + adminApply +
                 '}';
     }
+
 }

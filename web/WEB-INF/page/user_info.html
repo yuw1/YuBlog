@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>个人资料</title>
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/amazeui.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/amazeui.css"/>
+    <style>
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 200%;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .header p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="header">
+    <div class="am-g">
+        <h1 th:text="${showUsername} + '的个人信息'">王宇的个人资料</h1>
+    </div>
+    <hr/>
+</div>
+
+<section class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+            <ul class="am-tabs-nav am-cf">
+                <li th:class="${page} == 'user'?'am-active':''"><a href="[data-tab-panel-0]">个人信息</a></li>
+                <li th:class="${page} == 'article'?'am-active':''"><a href="[data-tab-panel-1]">发表文章</a></li>
+                <li th:class="${page} == 'comment'?'am-active':''"><a href="[data-tab-panel-2]">发表评论</a></li>
+                <li th:class="${page} == 'comment'?'am-active':''" th:hidden="${isOwn} == 'false'"><a
+                        href="[data-tab-panel-3]">修改密码</a></li>
+            </ul>
+            <div class="am-tabs-bd">
+                <div data-tab-panel-0 th:class="${page} == 'user'?'am-active am-tab-panel':'am-tab-panel'">
+                    <h3>个人信息</h3>
+                    <hr>
+                    <script type="text/javascript">
+                        function show_pic() {
+                            var r = new FileReader();
+                            f = document.getElementById('user-pic').files[0];
+                            r.readAsDataURL(f);
+
+                            r.onload = function (e) {
+                                document.getElementById('show').src = this.result;
+                            };
+                        }
+                    </script>
+                    <form method="post" class="am-form"
+                          th:action="'/changeUserInfo?' + ${_csrf.parameterName} + '=' + ${_csrf.token}"
+                          enctype="multipart/form-data">
+                        <label for="user-id">账号:</label>
+                        <input type="text" name="user-id" id="user-id" th:value="${showUserId}" readonly="readonly">
+                        <br>
+                        <label for="user-name">用户名:</label>
+                        <input type="text" name="user-name" id="user-name" th:value="${showUsername}"
+                               th:readonly="${isOwn} == 'false'">
+                        <br>
+                        <label for="file">头像：</label>
+                        <br>
+                        <img id='show' th:src="${showUserPic}" th:readonly="${isOwn} == 'false'">
+                        <div th:hidden="${isOwn} == 'false'">
+                            <input type="file" name="file" id="file" onchange="show_pic()">
+                        </div>
+                        <br/>
+                        <div class="am-cf" th:hidden="${isOwn} == 'false'">
+                            <input type="submit" value="保存个人信息" class="am-btn am-btn-primary am-btn-sm am-fl">
+                        </div>
+                    </form>
+                </div>
+                <div data-tab-panel-1 th:class="${page} == 'article'?'am-active am-tab-panel':'am-tab-panel'">
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                        <div class="am-list-news-bd">
+                            <ul th:each="article : ${articles}" class="am-list">
+                                <li class="am-g am-list-item-desced">
+                                    <div>
+                                        <a th:href="@{'/article?articleId='+${article.getId()}}"
+                                           th:text="${article.getTitle()}" class="am-list-item-hd"></a>
+                                        <div th:hidden="${isOwn} == 'false'">
+                                            <form action="/delete-article-by-id" method="post">
+                                                <input type="hidden" th:value="${article.getId()}" name="article-id"/>
+                                                <input type="hidden" th:name="${_csrf.parameterName}"
+                                                       th:value="${_csrf.token}"/>
+                                                <input type="submit" class="am-align-right" value="删除">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div th:text="'摘要：' + ${article.getArticleAbstract()} + '， 最后修改时间：' + ${article.getLastModified()} + ', 分类：' + ${article.getCatalogName()}"
+                                         class="am-list-item-text am-text-primary"></div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div data-tab-panel-2 th:class="${page} == 'comment'?'am-active am-tab-panel':'am-tab-panel'">
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                        <div class="am-list-news-bd">
+                            <ul th:each="comment : ${comments}" class="am-list">
+                                <li class="am-g am-list-item-desced">
+                                    <div>
+                                        <a th:href="@{'/article?articleId='+${comment.getArticleId()}}"
+                                           th:text="${comment.getComment()}" class="am-list-item-hd"></a>
+                                        <div th:hidden="${isOwn} == 'false'">
+                                            <form action="/delete-comment-by-id" method="post">
+                                                <input type="hidden" th:value="${comment.getId()}" name="comment-id"/>
+                                                <input type="hidden" th:name="${_csrf.parameterName}"
+                                                       th:value="${_csrf.token}"/>
+                                                <input type="submit" class="am-align-right" value="删除">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div th:text="'文章：' + ${comment.getArticleTitle()} + ', 作者：' + ${comment.getAuthor()} + '， 最后评论时间：' + ${comment.getLastModified()}"
+                                         class="am-list-item-text am-text-primary"></div>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div data-tab-panel-3 th:hidden="${isOwn} == 'false'"
+                     th:class="${page} == 'change-pwd'?'am-active am-tab-panel':'am-tab-panel'">
+                    <form method="post" class="am-form" action="/changePassword">
+                        <label for="pwd">密码:</label>
+                        <input type="password" name="pwd" id="pwd" value="">
+                        <br>
+                        <label for="pwd_confirm">确认密码:</label>
+                        <input type="password" name="pwd_confirm" id="pwd_confirm" value=""
+                               onkeyup="validate_pwd()"><span id="tip_pwd"></span>
+                        <br>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <br/>
+                        <div class="am-cf">
+                            <input type="submit" id="submit" name="" value="确认修改密码"
+                                   class="am-btn am-btn-primary am-btn-sm am-fl" disabled="false">
+                        </div>
+                    </form>
+                </div>
+                <script>
+                    function validate_pwd() {
+                        var pwd1 = document.getElementById("pwd").value;
+                        var pwd2 = document.getElementById("pwd_confirm").value;
+                        <!-- 对比两次输入的密码 -->
+                        if (pwd1 == pwd2 && pwd1 != '') {
+                            document.getElementById("tip_pwd").innerHTML = "<font color='green'>两次密码相同</font>";
+                            var username = document.getElementById("user-name").value;
+                            if (username != '') {
+                                document.getElementById("submit").disabled = false;
+                            }
+                        }
+                        else {
+                            document.getElementById("tip_pwd").innerHTML = "<font color='red'>两次密码不相同</font>";
+                            document.getElementById("submit").disabled = true;
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+
+        <hr>
+    </div>
+</section>
+<div th:include="footer.html"></div>
+</body>
+</html>

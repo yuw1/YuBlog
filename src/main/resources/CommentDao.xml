@@ -5,4 +5,41 @@
     <insert id="addComment" flushCache="true" parameterType="cn.net.wangshifu.model.Comment">
         INSERT INTO comment(comment,article_id,user_id) VALUES(#{comment},#{articleId},#{userId});
     </insert>
+    <!--配置一个resultMap 指定返回的类型 -->
+    <resultMap id="result" type="cn.net.wangshifu.model.Comment">
+        <id column="id" property="id"/>
+        <result column="comment" property="comment"/>
+        <result column="article_id" property="articleId"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="author" property="author"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="last_modified" property="lastModified"/>
+        <result column="user_pic" property="userPic"/>
+    </resultMap>
+
+
+    <!-- 返回一个list的写法 -->
+    <select id="selectCommentByArticleId" parameterType="int" resultMap="result">
+        select id, comment, article_id, user_id, username, last_modified, user_pic from comment WHERE article_id = #{id}
+        ORDER BY last_modified DESC ;
+    </select>
+
+    <select id="selectCommentByCommenterId" parameterType="int" resultMap="result">
+        select id, comment, article_id, article_title, author, user_id, username, last_modified, user_pic from comment
+        WHERE user_id = #{id} ORDER BY last_modified DESC;
+    </select>
+    <select id="selectAllComment" resultMap="result">
+        select id, comment, article_id, article_title, author, user_id, username, last_modified, user_pic from comment
+        ORDER BY last_modified DESC ;
+    </select>
+    <delete id="deleteAllCommentByUserId" parameterType="int">
+        DELETE FROM comment WHERE user_id = #{userId};
+    </delete>
+    <delete id="deleteCommentById" parameterType="int">
+        DELETE FROM comment WHERE id = #{commentId};
+    </delete>
+    <select id="selectUserIdByCommentId" resultType="int">
+        SELECT user_id FROM comment WHERE id = #{commentId};
+    </select>
 </mapper>

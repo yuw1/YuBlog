@@ -1,0 +1,127 @@
+<header class="am-topbar am-topbar-fixed-top">
+    <div>
+        <h1 class="am-topbar-brand"><a href="/blog" th:text="${blogName}"></a>&nbsp;&nbsp;<br/></h1>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <script>
+                    function GetUrlRelativePath() {
+                        var url = document.location.toString();
+                        var arrUrl = url.split("//");
+
+                        var start = arrUrl[1].indexOf("/");
+                        var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+
+                        if (relUrl.indexOf("?") != -1) {
+                            relUrl = relUrl.split("?")[0];
+                        }
+                        return relUrl;
+                    }
+
+                    window.onload = function () {
+                        if (GetUrlRelativePath() == '/') {
+                            var index = document.getElementById("index");
+                            index.setAttribute("class", "am-active")
+                        }
+                        if (GetUrlRelativePath() == '/blog') {
+                            var blog = document.getElementById("blog");
+                            blog.setAttribute("class", "am-active")
+                        }
+                        if (GetUrlRelativePath() == '/write-article') {
+                            var write_article = document.getElementById("write_article");
+                            write_article.setAttribute("class", "am-active")
+                        }
+
+                    }
+                </script>
+                <li id="index"><a href="/">首页</a></li>
+                <li id="blog"><a href="/blog">博客</a></li>
+                <li id="write_article"><a href="/write-article">写文章</a></li>
+            </ul>
+
+            <div th:if="${#strings.contains(#authentication.principal.authorities,'ROLE_USER')}">
+                <form action="/logout" method="post" id="logoutForm">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+
+                <script>
+                    function formSubmit() {
+                        document.getElementById("logoutForm").submit();
+                    }
+                </script>
+
+                <div class="am-topbar-right">
+                    <li class="am-dropdown am-btn am-btn-primary am-topbar-btn am-btn-sm" data-am-dropdown>
+                        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;"
+                           style="color: #FFFFFF;">
+                            <span class="am-icon-user"></span> <span th:text="${username}"></span> <span
+                                class="am-icon-caret-down"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li><a><span data-am-offcanvas="{target: '#doc-oc-demo2', effect: 'push'}"
+                                         class="am-icon-user"> 资料</span></a></li>
+                            <li><a th:href="'/user'"><span class="am-icon-cog"></span> 设置</a></li>
+                            <li><a href="javascript:formSubmit()"><span class="am-icon-power-off"></span> 退出</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</header>
+<!-- 侧边栏内容 -->
+<div id="doc-oc-demo2" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content">
+            <ul class="am-nav">
+                <img th:src="${userPic}" width="150" height="150">
+                <li><a href="/user" th:text="${username}"></a></li>
+                <hr>
+                <li class="am-nav-header">个人信息</li>
+                <li><a href="/user?page=user">我的资料</a></li>
+                <li><a href="/user?page=article">已发表文章</a></li>
+                <li><a href="/user?page=comment">已发表评论</a></li>
+                <hr>
+                <li><a href="/write-article">发表文章</a></li>
+                <hr>
+                <li class="am-nav-header">管理员权限</li>
+                <li th:if="${#strings.contains(#authentication.principal.authorities,'ROLE_ADMIN')}">
+                    <a href="/admin?page=user">博客管理</a>
+                </li>
+                <li th:unless="${#strings.contains(#authentication.principal.authorities,'ROLE_ADMIN')}">
+                    <a th:if="${hadApplyAdmin} == 'true'" id="hadadminapply">您已申请成功，请等待审核</a>
+                    <a th:if="${hadApplyAdmin} == 'false'" id="adminapply">申请成为管理员</a>
+                </li>
+                <hr>
+                <li th:if="${#strings.contains(#authentication.principal.authorities,'ROLE_OWNER')}"
+                    class="am-nav-header">站长权限
+                </li>
+                <li th:if="${#strings.contains(#authentication.principal.authorities,'ROLE_OWNER')}">
+                    <a href="/owner?page=admin-request">管理员管理</a>
+                </li>
+                <input id="csrf_input" type="hidden" th:value="'?' + ${_csrf.parameterName} + '=' + ${_csrf.token}"/>
+                <script>
+                    var url = '/applyToAdmin' + document.getElementById("csrf_input").value
+                    $("#adminapply").click(function () {
+                        $.ajax({
+                            url: url,
+                            type: 'post',
+                            success: function (result) {
+                                var result = JSON.parse(result)
+                                if (result.state == 'success') {
+                                    document.getElementById("adminapply").innerText = "您已申请成功，请等待审核"
+                                }
+                            },
+                            error: function (result) {
+                            }
+                        });
+                    });
+                </script>
+
+            </ul>
+        </div>
+    </div>
+</div>

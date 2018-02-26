@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>写文章</title>
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/jquery.treeview.js" type="text/javascript"></script>
+    <script src="/js/amazeui.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/jquery.treeview.css">
+    <script>
+        function show() {
+            var title = document.getElementById("title-text").value;
+            var author = document.getElementById("author-text").value;
+            var text = document.getElementById("content-text").value;
+            if (title != '') {
+                $('#title').text(title)
+            }
+            if (author != '') {
+                $('#author').text(author)
+            }
+            if (text != '') {
+                $('#content').html(text)
+            }
+        }
+
+    </script>
+    <link rel="stylesheet" href="/css/amazeui.css"/>
+    <link rel="stylesheet" href="/css/editor.css">
+</head>
+<body>
+<br>
+<div th:include="header.html"></div>
+<div class="am-g">
+    <form class="am-u-lg-6" id="editor" method="post" action="/publish">
+        <div class="am-input-group">
+            <span class="am-input-group-label">标题</span>
+            <input name="title-text" type="text" class="am-form-field" placeholder="Title" id="title-text"
+                   onchange="show()">
+        </div>
+        <div class="am-input-group">
+            <span class="am-input-group-label">作者</span>
+            <input name="author-text" type="text" class="am-form-field" th:value="${username}" id="author-text"
+                   onchange="show()" readonly="readonly">
+        </div>
+        <div class="am-input-group">
+            <span class="am-input-group-label">简介</span>
+            <input name="article-abstract" type="text" class="am-form-field" placeholder="Article abstract"
+                   id="article-abstract" onchange="show()">
+        </div>
+        <div class="am-input-group">
+            <span class="am-input-group-label">目录</span>
+            <input name="article-catalog" type="text" class="am-form-field" value="博客" id="article-catalog"
+                   readonly="readonly">
+            <input name="article-catalog-id" type="hidden" value="0" id="article-catalog-id">
+        </div>
+        <div>
+            <button type="button" class="am-align-right am-btn am-btn-primary am-btn-sm" onclick="show_catalog()">修改目录
+            </button>
+            <script>
+                function show_catalog() {
+                    var current = document.getElementById("tree");
+                    current.style.visibility = "visible";
+                    current.setAttribute("class", "filetree")
+                    $("#tree").treeview();
+                }
+
+                function select_catalog(catalog_id, catalog) {
+                    var current = document.getElementById("tree");
+                    current.style.visibility = "hidden";
+                    current.setAttribute("class", "filetree am-hide")
+                    document.getElementById("article-catalog").value = catalog
+                    document.getElementById("article-catalog-id").value = catalog_id
+                }
+            </script>
+            <ul id="tree" class="filetree am-hide"
+                style="visibility: hidden; border-style: solid; border-width: 1px 1px;">
+                <li><a th:class="${catalogRoot.subCatalogs} != null? 'folder' : ''" th:text="${catalogRoot.getName()}"
+                       th:onclick="'select_catalog(\'' + ${catalogRoot.getId()} + '\', \'' + ${catalogRoot.getName()} + '\')'"></a>
+                    <ul th:class="${catalogRoot.subCatalogs} != null? '' : 'hide'"
+                        th:each="catalog1 : ${catalogRoot.getSubCatalogs()}">
+                        <li><a th:class="${catalog1.subCatalogs} != null? 'folder' :''" class="folder"
+                               th:text="${catalog1.getName()} "
+                               th:onclick="'select_catalog(\'' + ${catalog1.getId()} + '\', \'' + ${catalog1.getName()} + '\')'"></a>
+                            <ul th:class="${catalog1.subCatalogs} != null? '' :'hide'"
+                                th:each="catalog2 : ${catalog1.getSubCatalogs()}">
+                                <li><a th:class="${catalog2.subCatalogs} != null? 'folder' : ''"
+                                       th:text="${catalog2.getName()}"
+                                       th:onclick="'select_catalog(\'' + ${catalog2.getId()} + '\', \'' + ${catalog2.getName()} + '\')'"></a>
+                                    <ul th:class="${catalog2.subCatalogs} != null? '' :'hide'"
+                                        th:each="catalog3 : ${catalog2.getSubCatalogs()}">
+                                        <li><a th:class="${catalog3.subCatalogs} != null? 'folder' : ''"
+                                               th:text="${catalog3.getName()}"
+                                               th:onclick="'select_catalog(\'' + ${catalog3.getId()} + '\', \'' + ${catalog3.getName()} + '\')'"></a>
+                                            <ul th:class="${catalog3.subCatalogs} != null? '' :'hide'"
+                                                th:each="catalog4 : ${catalog3.getSubCatalogs()}">
+                                                <li><a th:class="${catalog4.subCatalogs} != null? 'folder' : ''"
+                                                       th:text="${catalog4.getName()}"
+                                                       th:onclick="'select_catalog(\'' + ${catalog4.getId()} + '\', \'' + ${catalog4.getName()} + '\')'"></a>
+                                                    <ul th:class="${catalog4.subCatalogs} != null? '' :'hide'"
+                                                        th:each="catalog5 : ${catalog4.getSubCatalogs()}">
+                                                        <li><a th:class="${catalog5.subCatalogs} != null? 'folder' : ''"
+                                                               th:text="${catalog5.getName()}"
+                                                               th:onclick="'select_catalog(\'' + ${catalog5.getId()} + '\', \'' + ${catalog5.getName()} + '\')'"></a>
+                                                            <ul th:class="${catalog5.subCatalogs} != null? '' :'hide'"
+                                                                th:each="catalog6 : ${catalog5.getSubCatalogs()}">
+                                                                <li>
+                                                                    <a th:class="${catalog6.subCatalogs} != null? 'folder' : ''"
+                                                                       th:text="${catalog6.getName()}"
+                                                                       th:onclick="'select_catalog(\'' + ${catalog6.getId()} + '\', \'' + ${catalog6.getName()} + '\')'"></a>
+                                                                    <ul th:class="${catalog6.subCatalogs} != null? '' :'hide'"
+                                                                        th:each="catalog7 : ${catalog6.getSubCatalogs()}">
+                                                                        <li><a th:text="${catalog7.getName()}"
+                                                                               th:onclick="'select_catalog(\'' + ${catalog7.getId()} + '\', \'' + ${catalog7.getName()} + '\')'"></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div class="am-btn-group">
+            <button id="add-abstract" class="am-btn am-btn-primary">添加摘要</button>
+            <button id="add-paragraph" class="am-btn am-btn-secondary">添加段落</button>
+            <button id="add-blockquote" class="am-btn am-btn-primary">添加引用</button>
+            <button id="add-h2-title" class="am-btn am-btn-secondary">二级标题</button>
+            <button id="add-h3-title" class="am-btn am-btn-primary">三级标题</button>
+            <button id="add-hr" class="am-btn am-btn-secondary">分割线</button>
+        </div>
+        <textarea form="editor" type="text" name="content-text" id="content-text" class="" onchange="show()" rows="20"
+                  style="width: 100%;"></textarea>
+        <div class="am-btn-group" style="float: right">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="button" class="am-btn am-btn-secondary" onclick="show()" value="预览">
+            <input type="submit" class="am-btn am-btn-secondary" value="发表">
+        </div>
+    </form>
+    <div class="am-u-lg-6">
+        <article class="am-article">
+            <div class="am-article-hd">
+                <h1 class="am-article-title" id="title">标题</h1>
+                <p class="am-article-meta" id="author" th:text="${username}"></p>
+            </div>
+            <div id="content" class="am-article-bd">正文</div>
+        </article>
+    </div>
+</div>
+<div th:include="footer.html"></div>
+<script src="/js/editor.js" type="text/javascript"></script>
+</body>
+</html>

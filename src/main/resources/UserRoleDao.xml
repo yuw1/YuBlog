@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.wangshifu.dao.UserRoleDao">
+    <insert id="addAdminRole" flushCache="true" parameterType="int">
+        INSERT INTO user_role(id, role) VALUE (#{userId}, 'ROLE_ADMIN');
+    </insert>
+    <select id="selectAllAdmin" resultType="int">
+        SELECT DISTINCT id FROM user_role WHERE role = 'ROLE_ADMIN' AND id NOT IN (SELECT id FROM user_role WHERE role = 'ROLE_OWNER');
+    </select>
+    <delete id="deleteAdminRole" parameterType="int">
+        DELETE FROM user_role WHERE id = #{adminId} AND role = 'ROLE_ADMIN';
+    </delete>
+    <select id="selectAllCommonUserId" resultType="int">
+        SELECT DISTINCT id FROM user_role WHERE role = 'ROLE_USER' AND id NOT IN (
+          SELECT DISTINCT id FROM user_role WHERE role = 'ROLE_ADMIN' OR role = 'ROLE_OWNER'
+        )
+    </select>
+</mapper>

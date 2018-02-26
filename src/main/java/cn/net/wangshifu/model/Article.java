@@ -1,10 +1,17 @@
 package cn.net.wangshifu.model;
 
+import java.sql.Timestamp;
+
 public class Article {
     int id;
+    String title;
     String content;
     int authorId;
-    String authorNickname;
+    String authorUsername;
+    Timestamp lastModified;
+    String articleAbstract;
+    int catalogId;
+    String catalogName;
 
     public int getId() {
         return id;
@@ -12,6 +19,14 @@ public class Article {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -30,21 +45,58 @@ public class Article {
         this.authorId = authorId;
     }
 
-    public String getAuthorNickname() {
-        return authorNickname;
+    public String getAuthorUsername() {
+        return authorUsername;
     }
 
-    public void setAuthorNickname(String authorNickname) {
-        this.authorNickname = authorNickname;
+    public void setAuthorUsername(String authorUsername) {
+        this.authorUsername = authorUsername;
+    }
+
+    public Timestamp getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Timestamp lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public String getArticleAbstract() {
+        return articleAbstract;
+    }
+
+    public void setArticleAbstract(String articleAbstract) {
+        this.articleAbstract = articleAbstract;
+    }
+
+    public int getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(int catalogId) {
+        this.catalogId = catalogId;
+    }
+
+    public String getCatalogName() {
+        return catalogName;
+    }
+
+    public void setCatalogName(String catalogName) {
+        this.catalogName = catalogName;
     }
 
     @Override
     public String toString() {
         return "Article{" +
                 "id=" + id +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", authorId=" + authorId +
-                ", authorNickname='" + authorNickname + '\'' +
+                ", authorUsername='" + authorUsername + '\'' +
+                ", lastModified=" + lastModified +
+                ", articleAbstract='" + articleAbstract + '\'' +
+                ", catalogId=" + catalogId +
+                ", catalogName='" + catalogName + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.wangshifu.dao.AdminApplyDao">
+    <select id="selectAdminApply" flushCache="true" resultMap="result">
+        SELECT id, user_id, user_name, last_apply_time FROM admin_apply ORDER BY last_apply_time;
+    </select>
+    <resultMap id="result" type="cn.net.wangshifu.model.AdminApply">
+        <result column="id" property="id"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="user_name" property="userName"></result>
+        <result column="last_apply_time" property="lastApplyTime"></result>
+    </resultMap>
+    <select id="addAdminApply" statementType="CALLABLE" parameterType="int">
+        <![CDATA[
+          {call admin_apply_add(
+            #{userId,mode=IN,jdbcType=INTEGER}
+          )}
+        ]]>
+    </select>
+    <select id="hadApplyAdmin" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM admin_apply WHERE user_id = #{userId};
+    </select>
+    <delete id="deleteAdminApply" parameterType="int">
+        DELETE FROM admin_apply WHERE user_id = #{userId};
+    </delete>
+</mapper>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
@@ -16,13 +16,32 @@
         .header p {
             font-size: 14px;
         }
+
+        .error {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            color: #a94442;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+        }
+
+        .msg {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            color: #31708f;
+            background-color: #d9edf7;
+            border: 1px solid #bce8f1;
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="am-g">
-            <h1>Web ide</h1>
-            <p>Integrated Development Environment<br/>代码编辑，代码生成，界面设计，调试，编译</p>
+            <h1 th:text="${blogLoginSlogen}"></h1>
+            <p th:text="${blogLoginMinorSlogen}">知识改变生活</p>
+            <p th:text="${blogLoginSencondMinorSlogen}">用交流促进技术</p>
         </div>
         <hr />
     </header>
@@ -30,34 +49,26 @@
         <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
             <h3>登录</h3>
             <hr>
-            <div class="am-btn-group">
-                <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-github am-icon-sm"></i> Github</a>
-                <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-google-plus-square am-icon-sm"></i> Google+</a>
-                <a href="#" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-stack-overflow am-icon-sm"></i> stackOverflow</a>
-            </div>
-            <br>
-            <br>
-
-            <form method="post" class="am-form">
-                <label for="email">邮箱:</label>
-                <input type="email" name="" id="email" value="">
+            <div class="error" th:class="${error}? 'show error' : 'hide'" th:text="${error}"></div>
+            <div class="msg" th:class="${msg}? 'show msg' : 'hide'" th:text="${msg}"></div>
+            <form method="post" class="am-form" action="/login">
+                <label for="user-name">账号:</label>
+                <input type="text" name="user-name" id="user-name" value="">
                 <br>
-                <label for="password">密码:</label>
-                <input type="password" name="" id="password" value="">
+                <label for="pwd">密码:</label>
+                <input type="password" name="pwd" id="pwd" value="">
                 <br>
-                <label for="remember-me">
-                    <input id="remember-me" type="checkbox">
-                    记住密码
-                </label>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <br />
                 <div class="am-cf">
                     <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
-                    <input type="submit" name="" value="忘记密码 ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">
+                    <!--<input type="submit" name="" value="忘记密码 ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">-->
+                    <a name="" value="" href="/register" class="am-btn am-btn-warning am-btn-sm am-fl">注&nbsp册</a>
                 </div>
             </form>
             <hr>
-            <p>© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
         </div>
     </section>
+    <div th:include="footer.html"></div>
 </body>
 </html>

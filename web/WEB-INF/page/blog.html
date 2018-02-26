@@ -1,136 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" href="/css/amazeui.css">
     <link rel="stylesheet" href="/css/amazeui.flat.css">
+    <link rel="stylesheet" href="/css/jquery.treeview.css">
     <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/jquery.treeview.js" type="text/javascript"></script>
     <script src="/js/amazeui.js" type="text/javascript"></script>
     <script src="/js/handlebars.min.js" type="text/javascript"></script>
 </head>
 <body>
-    <header class="am-topbar am-topbar-fixed-top">
-        <h1 class="am-topbar-brand">博客&nbsp;&nbsp;<br/></h1>
-        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-            <ul class="am-nav am-nav-pills am-topbar-nav">
-                <li class="am-active"><a href="#">首页</a></li>
-                <li><a href="#">项目</a></li>
-                <li class="am-dropdown" data-am-dropdown>
-                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                        下拉 <span class="am-icon-caret-down"></span>
-                    </a>
-                    <ul class="am-dropdown-content">
-                        <li class="am-dropdown-header">标题</li>
-                        <li><a href="#">1. 去月球</a></li>
-                        <li class="am-active"><a href="#">2. 去火星</a></li>
-                        <li><a href="#">3. 还是回地球</a></li>
-                        <li class="am-disabled"><a href="#">4. 下地狱</a></li>
-                        <li class="am-divider"></li>
-                        <li><a href="#">5. 桥头一回首</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="am-topbar-right">
-                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</button>
-            </div>
-            <div class="am-topbar-right">
-                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm" data-am-offcanvas="{target: '#doc-oc-demo2', effect: 'push'}">注册</button>
-            </div>
-        </div>
-    </header>
-    <ol class="am-breadcrumb">
-        <li><a href="#">首页</a></li>
-        <li><a href="#">分类</a></li>
-        <li class="am-active">内容</li>
+<div th:include="header.html"></div>
+<ol class="am-breadcrumb">
+    <span>您现在所在位置为： </span>
+    <li th:each="node,nodeStat : ${route}" th:class="${nodeStat.last} ? 'am-active'">
+        <a th:hidden="${nodeStat.last} ? 'true'" th:href="${nodeStat.last} ? '' : '/blog?catalogId=' + ${node.getId()}"
+           th:text="${node.getName()}"></a>
+        <span th:hidden="${nodeStat.last} ? 'false' : 'true'" th:text="${node.getName()}"></span>
+    </li>
     </ol>
     <hr/>
     <div class="am-g">
         <div class="am-u-lg-2">
-            <div>
-                <ul>
-                    <li>你好</li>
-                </ul>
-            </div>
+            <ul id="tree" class="filetree">
+                <li><a th:class="${catalogRoot.subCatalogs} != null? 'folder' : ''" th:text="${catalogRoot.getName()}"
+                       th:href="'/blog?catalogId=' + ${catalogRoot.getId()}"></a>
+                    <ul th:class="${catalogRoot.subCatalogs} != null? '' : 'hide'"
+                        th:each="catalog1 : ${catalogRoot.getSubCatalogs()}">
+                        <li><a th:class="${catalog1.subCatalogs} != null? 'folder' :''" class="folder"
+                               th:text="${catalog1.getName()} " th:href="'/blog?catalogId=' + ${catalog1.getId()}"></a>
+                            <ul th:class="${catalog1.subCatalogs} != null? '' :'hide'"
+                                th:each="catalog2 : ${catalog1.getSubCatalogs()}">
+                                <li><a th:class="${catalog2.subCatalogs} != null? 'folder' : ''"
+                                       th:text="${catalog2.getName()}"
+                                       th:href="'/blog?catalogId=' + ${catalog2.getId()}"></a>
+                                    <ul th:class="${catalog2.subCatalogs} != null? '' :'hide'"
+                                        th:each="catalog3 : ${catalog2.getSubCatalogs()}">
+                                        <li><a th:class="${catalog3.subCatalogs} != null? 'folder' : ''"
+                                               th:text="${catalog3.getName()}"
+                                               th:href="'/blog?catalogId=' + ${catalog3.getId()}"></a>
+                                            <ul th:class="${catalog3.subCatalogs} != null? '' :'hide'"
+                                                th:each="catalog4 : ${catalog3.getSubCatalogs()}">
+                                                <li><a th:class="${catalog4.subCatalogs} != null? 'folder' : ''"
+                                                       th:text="${catalog4.getName()}"
+                                                       th:href="'/blog?catalogId=' + ${catalog4.getId()}"></a>
+                                                    <ul th:class="${catalog4.subCatalogs} != null? '' :'hide'"
+                                                        th:each="catalog5 : ${catalog4.getSubCatalogs()}">
+                                                        <li><a th:class="${catalog5.subCatalogs} != null? 'folder' : ''"
+                                                               th:text="${catalog5.getName()}"
+                                                               th:href="'/blog?catalogId=' + ${catalog5.getId()}"></a>
+                                                            <ul th:class="${catalog5.subCatalogs} != null? '' :'hide'"
+                                                                th:each="catalog6 : ${catalog5.getSubCatalogs()}">
+                                                                <li>
+                                                                    <a th:class="${catalog6.subCatalogs} != null? 'folder' : ''"
+                                                                       th:text="${catalog6.getName()}"
+                                                                       th:href="'/blog?catalogId=' + ${catalog6.getId()}"></a>
+                                                                    <ul th:class="${catalog6.subCatalogs} != null? '' :'hide'"
+                                                                        th:each="catalog7 : ${catalog6.getSubCatalogs()}">
+                                                                        <li><a th:text="${catalog7.getName()}"
+                                                                               th:href="'/blog?catalogId=' + ${catalog7.getId()}"></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <script type="text/javascript">
+                $("#tree").treeview();
+            </script>
         </div>
-
         <div class="am-u-lg-10">
             <div data-am-widget="list_news" class="am-list-news am-list-news-default">
                 <div class="am-list-news-bd">
-                    <ul class="am-list">
+                    <ul th:each="article : ${articles}" class="am-list">
                         <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">苍天已死</a>
-                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
+                            <a th:href="@{'/article?articleId='+${article.getId()}}" th:text="${article.getTitle()}"
+                               class="am-list-item-hd"></a>
+                            <div th:text="'作者：' + ${article.getAuthorUsername()}  + '， 摘要：' + ${article.getArticleAbstract()} + '， 最后修改时间：' + ${article.getLastModified()} + ', 分类：' + ${article.getCatalogName()}"
+                                 class="am-list-item-text am-text-primary"></div>
                         </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">公无渡河</a>
-                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">苍天已死</a>
-                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">公无渡河</a>
-                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">苍天已死</a>
-                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">公无渡河</a>
-                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">苍天已死</a>
-                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">公无渡河</a>
-                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">苍天已死</a>
-                            <div class="am-list-item-text am-text-primary">苍天已死，黄天当立，岁在甲子，天下大吉。</div>
-                        </li>
-                        <li class="am-g am-list-item-desced">
-                            <a href="#" class="am-list-item-hd">公无渡河</a>
-                            <div class="am-list-item-text am-text-primary">公无渡河，公竟渡河，坠河而死，将公奈何。</div>
-                        </li>
+
                     </ul>
                 </div>
             </div>
 
         </div>
     </div>
+<div th:include="footer.html"></div>
 
-
-    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
-        <div class="am-footer-miscs ">
-            <p>Copyright©王宇</p>
-        </div>
-    </footer>
-    <!-- 侧边栏内容 -->
-    <div id="doc-oc-demo2" class="am-offcanvas">
-        <div class="am-offcanvas-bar am-offcanvas-bar-flip">
-            <div class="am-offcanvas-content">
-                <ul class="am-nav">
-                    <li><a href="#">永远的蝴蝶</a></li>
-                    <li class="am-nav-header">目录</li>
-                    <li><a href="#">原文</a></li>
-                    <li><a href="#">作者简介</a></li>
-                    <li><a href="#">文章赏析</a></li>
-                    <li><a href="#">读者评论</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
-        <a href="#top" title="回到顶部">
-            <span class="am-gotop-title">回到顶部</span>
-            <i class="am-gotop-icon am-icon-chevron-up"></i>
-        </a>
-    </div>
 </body>
 </html>

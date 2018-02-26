@@ -2,7 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.net.wangshifu.dao.ArticleDao">
-    <insert id="addArticle" flushCache="true" parameterType="cn.net.wangshifu.model.Article">
-        INSERT INTO article(content,articleId,author_id) VALUES(#{content},#{articleId},#{authorId});
+    <insert id="addArticle" flushCache="true" parameterType="cn.net.wangshifu.model.Article" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO article(content,title,author_id,abstract,catalog_id)
+        VALUES(#{content},#{title},#{authorId},#{articleAbstract},#{catalogId});
     </insert>
+    <select id="selectArticleById" flushCache="true" resultMap="result" parameterType="int">
+        SELECT id, title, content, author_id, author_username, last_modified FROM article WHERE id = #{id};
+    </select>
+    <resultMap id="result" type="cn.net.wangshifu.model.Article">
+        <result column="id" property="id"></result>
+        <result column="title" property="title"></result>
+        <result column="content" property="content"></result>
+        <result column="author_id" property="authorId"></result>
+        <result column="author_username" property="authorUsername"></result>
+        <result column="last_modified" property="lastModified"></result>
+        <result column="abstract" property="articleAbstract"></result>
+        <result column="catalog_id" property="catalogId"></result>
+        <result column="catalog_name" property="catalogName"></result>
+    </resultMap>
+    <select id="selectArticleByCatalogId" flushCache="true" resultMap="result">
+        SELECT id, title, author_id, author_username, last_modified, abstract, catalog_id, catalog_name FROM article
+        WHERE catalog_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY last_modified DESC ;
+    </select>
+    <select id="selectArticleByAuthorId" flushCache="true" resultMap="result" parameterType="int">
+        SELECT id, title, abstract, author_id, author_username, last_modified, catalog_id, catalog_name FROM article
+        WHERE author_id = #{authorId} ORDER BY last_modified DESC ;
+    </select>
+    <select id="selectAllArticle" resultMap="result">
+        SELECT id, title, abstract, author_id, author_username, last_modified, catalog_name, catalog_id FROM article
+        ORDER BY last_modified DESC ;
+    </select>
+    <delete id="deleteAllArticleByAuthorId" parameterType="int">
+        DELETE FROM article WHERE author_id = #{authorId};
+    </delete>
+    <delete id="deleteArticleById" parameterType="int">
+        DELETE FROM article WHERE id = #{articleId};
+    </delete>
+    <update id="changeCatalog">
+        UPDATE article SET catalog_id = #{newCatalogId}, catalog_name = #{newCatalogName} WHERE catalog_id =
+        #{catalogId};
+    </update>
+
+    <select id="selectUserIdByArticleId" resultType="int">
+        SELECT author_id FROM article WHERE id = #{articleId};
+    </select>
 </mapper>

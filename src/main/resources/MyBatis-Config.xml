@@ -7,5 +7,8 @@
         <mapper resource="UserDao.xml"/>
         <mapper resource="ArticleDao.xml"/>
         <mapper resource="CommentDao.xml"/>
+        <mapper resource="CatalogDao.xml"/>
+        <mapper resource="AdminApplyDao.xml"/>
+        <mapper resource="UserRoleDao.xml"/>
     </mappers>
 </configuration>

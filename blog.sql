@@ -104,7 +104,7 @@ create procedure user_add (IN `_nickname` varchar(20), IN `_password` varchar(30
   BEGIN
     declare _password_sha1_nickname varchar(52);
     set _password_sha1_nickname = concat(sha1(_password),_nickname);
-    INSERT INTO user(nickname,password_sha1_nickname) VALUES(_nickname,_password_sha1_nickname);
+    INSERT INTO user (username, password_sha1_nickname) VALUES (_nickname, _password_sha1_nickname);
     SET _id = LAST_INSERT_ID();
   END;
 
@@ -141,6 +141,8 @@ create procedure user_update (IN `_id` int, IN `_nickname` varchar(20), IN `_pas
   BEGIN
     declare _password_sha1_nickname varchar(60);
     set _password_sha1_nickname = concat(sha1(_password),_nickname);
-    UPDATE user SET nickname = _nickname, password_sha1_nickname = _password_sha1_nickname WHERE id = _id;
+    UPDATE user
+    SET username = _nickname, password_sha1_nickname = _password_sha1_nickname
+    WHERE id = _id;
   END;
 

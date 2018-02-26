@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>博客管理</title>
+    <script src="/yublog/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/yublog/js/amazeui.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/yublog/css/amazeui.css"/>
+    <link rel="stylesheet" href="/yublog/css/admin.css">
+    <style>
+        .yu-main {
+            padding-top: 0px;
+        }
+    </style>
+</head>
+<body>
+<div th:include="header.html"/>
+
+<div class="am-cf admin-main yu-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="am-list admin-sidebar-list">
+                <li><a href="/admin?page=user"><span class="am-icon-table"></span> 普通用户管理</a></li>
+                <li><a href="#"><span class="am-icon-table"></span> 文章管理</a></li>
+                <li><a href="/admin?page=comment"><span class="am-icon-pencil-square-o"></span> 评论管理</a></li>
+                <li><a href="/admin?page=user-disable"><span class="am-icon-table"></span> 封禁用户管理</a></li>
+                <li><a href="/admin?page=catalog"><span class="am-icon-table"></span> 目录管理</a></li>
+            </ul>
+
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>时光静好，与君语；细水流年，与君同。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">文章管理</strong> /
+                    <small>文章管理</small>
+                </div>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <table class="am-table am-table-bd am-table-striped admin-content-table">
+                        <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>摘要</th>
+                            <th>用户名</th>
+                            <th>目录</th>
+                            <th>最后修改时间</th>
+                            <th>查看</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="article : ${articles}">
+                            <td th:text="${article.getTitle()}"></td>
+                            <td th:text="${article.getArticleAbstract()}"></td>
+                            <td th:text="${article.getAuthorUsername()}"></td>
+                            <td th:text="${article.getCatalogName()}"></td>
+                            <td th:text="${article.getLastModified()}"></td>
+                            <td><a th:href="'/article?articleId=' + ${article.getId()}"
+                                   class="am-btn am-btn-primary am-btn-sm">查看</a></td>
+                            <td>
+                                <form action="/admin-delete-article-by-id" method="post">
+                                    <input type="hidden" name="article-id" th:value="${article.getId()}">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <input type="submit" th:value="删除" class="am-btn am-btn-primary am-btn-sm">
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-content-footer">
+            <hr>
+            <div th:include="footer.html"></div>
+        </div>
+    </div>
+    <!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+   data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/js/amazeui.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

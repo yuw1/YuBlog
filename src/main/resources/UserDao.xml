@@ -2,33 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.net.wangshifu.dao.UserDao">
-    <select id="selectUserById" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User" resultType="java.lang.String">
-        <![CDATA[
-          {call user_select_by_id(
-            #{id,mode=IN,jdbcType=INTEGER},#{nickname,mode=OUT,jdbcType=VARCHAR}
-          )}
-        ]]>
+    <select id="selectUserById" parameterType="int" resultMap="result">
+        SELECT id, username, user_pic FROM user WHERE id = #{id};
     </select>
-    <select id="addUser" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User" resultType="java.lang.Integer">
+    <resultMap id="result" type="cn.net.wangshifu.model.User">
+        <result column="id" property="id"></result>
+        <result column="username" property="username"></result>
+        <result column="user_pic" property="userPic"></result>
+    </resultMap>
+    <select id="addUser" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User"
+            resultType="java.lang.String">
         <![CDATA[
           {call user_add(
-            #{nickname,mode=IN,jdbcType=VARCHAR},#{password,mode=IN,jdbcType=VARCHAR},#{id,mode=OUT,jdbcType=INTEGER}
+            #{username,mode=IN,jdbcType=VARCHAR},#{password,mode=IN,jdbcType=VARCHAR},#{id,mode=OUT,jdbcType=VARCHAR}
           )}
         ]]>
     </select>
-    <select id="authUser" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User" resultType="java.lang.Integer">
+    <select id="changePassword" statementType="CALLABLE">
         <![CDATA[
-          {call user_auth(
-            #{id,mode=IN,jdbcType=INTEGER},#{password,mode=IN,jdbcType=VARCHAR},#{token,mode=OUT,jdbcType=INTEGER}
+          {call change_password(
+            #{userId,mode=IN,jdbcType=VARCHAR},#{password,mode=IN,jdbcType=VARCHAR}
           )}
         ]]>
     </select>
-    <update id="updateUser"  statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User">
-        <![CDATA[
-          {call user_update(
-            #{id,mode=IN,jdbcType=INTEGER},#{nickname,mode=IN,jdbcType=VARCHAR},#{password,mode=IN,jdbcType=VARCHAR}
-          )}
-        ]]>
+    <update id="updateUser" parameterType="cn.net.wangshifu.model.User">
+        UPDATE user SET username = #{username}, user_pic = #{userPic} WHERE id = #{id};
+    </update>
+    <update id="updateUserWithoutPic" parameterType="cn.net.wangshifu.model.User">
+        UPDATE user SET username = #{username} WHERE id = #{id};
     </update>
     <delete id="deleteUser" statementType="CALLABLE" parameterType="cn.net.wangshifu.model.User">
         <![CDATA[
@@ -37,4 +38,20 @@
           )}
         ]]>
     </delete>
+    <select id="selectUsersByIds" parameterType="list" resultMap="result">
+        SELECT id, username, user_pic FROM user WHERE id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND enabled = 1;
+    </select>
+    <select id="selectDisableUser" resultMap="result">
+        SELECT id, username, user_pic FROM user WHERE enabled = 0 ORDER BY last_modified DESC;
+    </select>
+    <update id="disableUser" parameterType="int">
+        UPDATE user SET enabled = 0 WHERE id = #{userId};
+    </update>
+    <update id="enableUser" parameterType="int">
+        UPDATE user SET enabled = 1 WHERE id = #{userId};
+    </update>
 </mapper>

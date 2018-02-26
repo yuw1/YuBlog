@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册成功</title>
+</head>
+<body>
+<h3>注册成功</h3>
+<h4>账号：
+    <div class="id" th:class="${id}? 'show id' : 'hide'" th:text="${id}"></div>
+</h4>
+<h4>用户名：
+    <div class="username" th:class="${username}? 'show username' : 'hide'" th:text="${username}"></div>
+</h4>
+</body>
+</html>
