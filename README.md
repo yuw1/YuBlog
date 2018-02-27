@@ -9,7 +9,7 @@
 
 # 下载
 ## 安装包下载
-[yublog-v1.0.0.tar.gz](https://gitee.com/imwangyu/YuBlogSystem/attach_files/download?i=119692&u=http%3A%2F%2Ffiles.git.oschina.net%2Fgroup1%2FM00%2F02%2FFB%2FPaAvDFqUKq6ASxUcAUhqVSGiAWU4578.gz%3Ftoken%3Df209bae7c323abdd678c0ce430038929%26ts%3D1519659711%26attname%3Dyublog-v1.0.0.tar.gz)
+[yublog-v1.0.0.tar.gz](https://gitee.com/imwangyu/YuBlogSystem/attach_files/download?i=119758&u=http%3A%2F%2Ffiles.git.oschina.net%2Fgroup1%2FM00%2F02%2FFB%2FPaAvDFqU7ICAAdbkAUcZ8sZSEPI0155.gz%3Ftoken%3D43171fa6ac088baf8d9d82deaaa5ef4f%26ts%3D1519709312%26attname%3Dyublog-v1.0.0.tar.gz)
 
 # 功能介绍
 ## 登录页面
