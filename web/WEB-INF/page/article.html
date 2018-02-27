@@ -28,10 +28,6 @@
                 </div>
                 <div id="content" class="am-article-bd"></div>
                 <input id="content_text" type="hidden" th:value="${content}">
-                <script>
-                    var text = document.getElementById("content_text").value;
-                    $('#content').html(text)
-                </script>
             </article>
             <section>
                 <ul class="am-comments-list am-comments-list-flip" th:each="comment : ${comments}">
@@ -79,6 +75,10 @@
 
 <script src="/js/jquery.min.js" type="text/javascript"></script>
 <script src="/js/amazeui.min.js" type="text/javascript"></script>
+<script>
+    var text = document.getElementById("content_text").value;
+    $('#content').html(text)
+</script>
 <link rel="stylesheet" href="/css/amazeui.min.css"/>
 </body>
 </html>
