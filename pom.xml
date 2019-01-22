@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <org.springframework.version>5.0.7</org.springframework.version>
+        <org.springframework.version>5.0.7.RELEASE</org.springframework.version>
         <spring.security.version>4.2.3.RELEASE</spring.security.version>
         <fastjson_version>1.2.28</fastjson_version>
     </properties>
