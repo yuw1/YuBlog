@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="YuBlogSystem:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/yublog</output-path>
-    <root id="archive" name="yublog.war">
-      <element id="artifact" artifact-name="YuBlogSystem:war exploded" />
-    </root>
-  </artifact>
-</component>
