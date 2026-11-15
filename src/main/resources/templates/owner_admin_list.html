@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('管理员名单')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar('owner')}"></div>
+
+<main class="shell">
+    <div class="page-head">
+        <div>
+            <h1>管理员名单</h1>
+            <p>撤销后该账号将不能再进入后台。</p>
+        </div>
+        <span class="badge badge--accent" th:text="${#lists.size(admins)} + ' 位管理员'">0 位</span>
+    </div>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <th:block th:replace="~{fragments :: ownerNav('list')}"></th:block>
+        </aside>
+
+        <section>
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>头像</th>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>主页</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="admin : ${admins}">
+                        <td><img class="avatar" th:src="${admin.userPic}" alt=""></td>
+                        <td class="mono" th:text="${admin.id}">1</td>
+                        <td th:text="${admin.username}">admin</td>
+                        <td><a class="btn btn--sm" th:href="@{/user(userId=${admin.id})}">查看</a></td>
+                        <td class="cell-actions">
+                            <form action="/owner-deleteAdminRole" method="post"
+                                  onsubmit="return confirm('撤销这个账号的管理员权限？');">
+                                <input type="hidden" name="user-id" th:value="${admin.id}">
+                                <input type="hidden" name="deleteAdminRole" value="true">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button class="btn btn--sm btn--danger" type="submit">撤销</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="empty" th:if="${#lists.isEmpty(admins)}" style="border:0">还没有管理员</div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

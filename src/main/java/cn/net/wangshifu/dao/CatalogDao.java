@@ -1,18 +1,25 @@
 package cn.net.wangshifu.dao;
 
 import cn.net.wangshifu.model.Catalog;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface CatalogDao {
-    List<Catalog> selectAllCatalog();
 
-    void addCatalog(@Param("subCatalogName") String subCatalogName, @Param("parentCatalogId") int parentCatalogId);
+    List<Catalog> selectAll();
 
-    void renameCatalog(@Param("catalogId") int catalogId, @Param("catalogName") String catalogName);
+    Catalog selectById(int id);
 
-    void deleteCatalogById(@Param("catalogId") int catalogId);
+    void insertCatalog(@Param("name") String name, @Param("parentId") int parentId);
 
-    Catalog selectCatalogById(@Param("catalogId") int catalogId);
+    void renameCatalog(@Param("id") int id, @Param("name") String name);
+
+    void deleteCatalog(int id);
+
+    int countChildren(int id);
+
+    int countArticles(int id);
 }

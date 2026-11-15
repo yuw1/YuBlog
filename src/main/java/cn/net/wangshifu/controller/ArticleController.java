@@ -1,186 +1,104 @@
 package cn.net.wangshifu.controller;
 
-import cn.net.wangshifu.bo.AdminApplyBo;
-import cn.net.wangshifu.dao.ArticleDao;
-import cn.net.wangshifu.dao.CatalogDao;
-import cn.net.wangshifu.dao.CommentDao;
-import cn.net.wangshifu.dao.UserDao;
+import cn.net.wangshifu.config.YuBlogProperties;
+import cn.net.wangshifu.exception.NotFoundException;
+import cn.net.wangshifu.exception.ValidationException;
 import cn.net.wangshifu.model.Article;
 import cn.net.wangshifu.model.Catalog;
-import cn.net.wangshifu.model.Comment;
 import cn.net.wangshifu.model.User;
+import cn.net.wangshifu.service.ArticleService;
+import cn.net.wangshifu.service.CatalogService;
+import cn.net.wangshifu.service.CommentService;
+import cn.net.wangshifu.service.CurrentUser;
+import cn.net.wangshifu.service.UserService;
 import cn.net.wangshifu.util.CatalogUtil;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.ResourceBundle;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ArticleController {
 
-    @RequestMapping("/article")
-    public ModelAndView article(@RequestParam("articleId") String articleId, @RequestParam(value = "msg", required = false) String msg) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("id", userDetail.getUsername());
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            UserDao userDao = (UserDao) context.getBean("userDao");
+    private final ArticleService articleService;
+    private final CommentService commentService;
+    private final CatalogService catalogService;
+    private final UserService userService;
+    private final CurrentUser currentUser;
+    private final YuBlogProperties properties;
 
-            int userId = Integer.parseInt(userDetail.getUsername());
-            User user = userDao.selectUserById(userId);
-            model.addObject("username", user.getUsername());
-            model.addObject("userPic", user.getUserPic());
-
-            ArticleDao articleDao = (ArticleDao) context.getBean("articleDao");
-            Article article = articleDao.selectArticleById(Integer.parseInt(articleId));
-            model.addObject("articleId", article.getId());
-            model.addObject("title", article.getTitle());
-            model.addObject("content", article.getContent());
-            model.addObject("authorUsername", article.getAuthorUsername());
-            model.addObject("authorId", article.getAuthorId());
-            model.addObject("lastModified", article.getLastModified());
-
-            CommentDao commentDao = (CommentDao) context.getBean("commentDao");
-            List<Comment> comments = commentDao.selectCommentByArticleId(Integer.parseInt(articleId));
-            model.addObject("comments", comments);
-
-            if (msg != null) {
-                model.addObject("msg", msg);
-            }
-
-
-            if (AdminApplyBo.hadApplyAdmin(context, userId)) {
-                model.addObject("hadApplyAdmin", "true");
-            } else {
-                model.addObject("hadApplyAdmin", "false");
-            }
-
-            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
-            String blogName = rb.getString("blog.name");
-            model.addObject("blogName", blogName);
-
-            model.setViewName("article.html");
-
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    public ArticleController(ArticleService articleService, CommentService commentService,
+                             CatalogService catalogService, UserService userService,
+                             CurrentUser currentUser, YuBlogProperties properties) {
+        this.articleService = articleService;
+        this.commentService = commentService;
+        this.catalogService = catalogService;
+        this.userService = userService;
+        this.currentUser = currentUser;
+        this.properties = properties;
     }
 
-    @RequestMapping(value = "write-article", method = RequestMethod.GET)
-    public ModelAndView writeArticle() {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("id", userDetail.getUsername());
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            UserDao userDao = (UserDao) context.getBean("userDao");
+    @GetMapping("/article")
+    public String article(@RequestParam("articleId") int articleId,
+                          @RequestParam(value = "msg", required = false) String msg,
+                          Model model) {
+        Article article = articleService.getRequired(articleId);
+        User viewer = currentUser.require();
+        User author = userService.findById(article.getAuthorId());
 
-            int userId = Integer.parseInt(userDetail.getUsername());
-            User user = userDao.selectUserById(userId);
-            model.addObject("username", user.getUsername());
-            model.addObject("userPic", user.getUserPic());
-
-            CatalogDao catalogDao = (CatalogDao) context.getBean("catalogDao");
-            List<Catalog> catalogs = catalogDao.selectAllCatalog();
-            Catalog root = CatalogUtil.catalog2Tree(catalogs);
-
-            model.addObject("catalogRoot", root);
-
-            if (AdminApplyBo.hadApplyAdmin(context, userId)) {
-                model.addObject("hadApplyAdmin", "true");
-            } else {
-                model.addObject("hadApplyAdmin", "false");
-            }
-
-            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
-            String blogName = rb.getString("blog.name");
-            model.addObject("blogName", blogName);
-
-            model.setViewName("write_article.html");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
+        model.addAttribute("articleId", article.getId());
+        model.addAttribute("title", article.getTitle());
+        model.addAttribute("content", article.getContent());
+        model.addAttribute("authorId", article.getAuthorId());
+        model.addAttribute("authorUsername", article.getAuthorUsername());
+        model.addAttribute("authorPic", author != null ? author.getUserPic() : properties.getDefaultAvatar());
+        model.addAttribute("catalogId", article.getCatalogId());
+        model.addAttribute("catalogName", article.getCatalogName());
+        model.addAttribute("lastModified", article.getLastModifiedText());
+        model.addAttribute("isOwn", article.getAuthorId() == viewer.getId() ? "true" : "false");
+        model.addAttribute("comments", commentService.byArticle(articleId));
+        if (msg != null) {
+            model.addAttribute("msg", msg);
         }
-        return model;
+        return "article";
     }
 
-    @RequestMapping(value = "/publish", method = RequestMethod.POST)
-    public ModelAndView publish(
-            @RequestParam("title-text") String title,
-            @RequestParam("content-text") String content,
-            @RequestParam("article-abstract") String articleAbstract,
-            @RequestParam("article-catalog-id") String catalogId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            int authorId = Integer.parseInt(userDetail.getUsername());
-
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-
-            ArticleDao articleDao = (ArticleDao) context.getBean("articleDao");
-            Article article = new Article();
-            article.setTitle(title);
-            article.setAuthorId(authorId);
-            article.setArticleAbstract(articleAbstract);
-            article.setContent(content);
-            article.setCatalogId(Integer.parseInt(catalogId));
-            articleDao.addArticle(article);
-            int id = article.getId();
-            model.addObject("msg", "文章发表成功");
-            model.setViewName("redirect:/article?articleId=" + id);
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @GetMapping("/write-article")
+    public String writeArticle(Model model) {
+        Catalog root = catalogService.tree();
+        int catalogId = catalogService.rootCatalogId();
+        Catalog selected = catalogId == CatalogUtil.NO_CATALOG ? root : catalogService.getRequired(catalogId);
+        model.addAttribute("catalogRoot", CatalogUtil.toTree(catalogService.all()));
+        model.addAttribute("defaultCatalogId", catalogId);
+        model.addAttribute("defaultCatalogName", selected.getName());
+        return "write_article";
     }
 
-
-    @RequestMapping(value = "/delete-article-by-id", method = RequestMethod.POST)
-    public ModelAndView deleteArticleById(
-            @RequestParam("article-id") String articleId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            int userId = Integer.parseInt(userDetail.getUsername());
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            ArticleDao articleDao = (ArticleDao) context.getBean("articleDao");
-            int authorId = articleDao.selectUserIdByArticleId(Integer.parseInt(articleId));
-            if (authorId == userId) {
-                articleDao.deleteArticleById(Integer.parseInt(articleId));
-            }
-
-            model.setViewName("redirect:/user?page=article");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
+    @PostMapping("/publish")
+    public String publish(@RequestParam("title-text") String title,
+                          @RequestParam("content-text") String content,
+                          @RequestParam(value = "article-abstract", required = false) String summary,
+                          @RequestParam("article-catalog-id") int catalogId,
+                          RedirectAttributes redirect) {
+        User author = currentUser.require();
+        try {
+            Article article = articleService.publish(author.getId(), title, content, summary, catalogId);
+            return "redirect:/article?articleId=" + article.getId() + "&msg=文章发表成功";
+        } catch (ValidationException | NotFoundException e) {
+            // 别把一篇长文丢在错误页上：退回编辑页并给出原因
+            redirect.addFlashAttribute("error", e.getMessage());
+            redirect.addFlashAttribute("titleDraft", title);
+            redirect.addFlashAttribute("abstractDraft", summary);
+            redirect.addFlashAttribute("contentDraft", content);
+            return "redirect:/write-article";
         }
-        return model;
     }
 
+    @PostMapping("/delete-article-by-id")
+    public String deleteArticle(@RequestParam("article-id") int articleId) {
+        articleService.delete(articleId, currentUser.require());
+        return "redirect:/user?page=article";
+    }
 }

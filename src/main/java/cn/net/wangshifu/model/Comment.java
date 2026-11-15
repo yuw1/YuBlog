@@ -1,17 +1,19 @@
 package cn.net.wangshifu.model;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class Comment {
-    int id;
-    String comment;
-    int articleId;
-    String articleTitle;
-    String author;
-    int userId;
-    String username;
-    Timestamp lastModified;
-    String userPic;
+public class Comment implements Serializable {
+    private int id;
+    private String comment;
+    private int articleId;
+    private String articleTitle;
+    private String author;
+    private int userId;
+    private String username;
+    private String userPic;
+    private LocalDateTime lastModified;
 
     public int getId() {
         return id;
@@ -37,11 +39,6 @@ public class Comment {
         this.articleId = articleId;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-
     public String getArticleTitle() {
         return articleTitle;
     }
@@ -58,6 +55,10 @@ public class Comment {
         this.author = author;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }
@@ -70,14 +71,6 @@ public class Comment {
         this.username = username;
     }
 
-    public Timestamp getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(Timestamp lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public String getUserPic() {
         return userPic;
     }
@@ -86,18 +79,16 @@ public class Comment {
         this.userPic = userPic;
     }
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", comment='" + comment + '\'' +
-                ", articleId=" + articleId +
-                ", articleTitle='" + articleTitle + '\'' +
-                ", author='" + author + '\'' +
-                ", userId=" + userId +
-                ", username='" + username + '\'' +
-                ", lastModified=" + lastModified +
-                ", userPic='" + userPic + '\'' +
-                '}';
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    /** Rendered by the templates; avoids printing {@code LocalDateTime.toString()}. */
+    public String getLastModifiedText() {
+        return lastModified == null ? "" : lastModified.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }

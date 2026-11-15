@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:yublog;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+  thymeleaf:
+    cache: false
+
+yublog:
+  upload-dir: ./data/demo-avatars
+
+logging:
+  level:
+    cn.net.wangshifu: DEBUG

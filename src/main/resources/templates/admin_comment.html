@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('评论管理')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar('admin')}"></div>
+
+<main class="shell">
+    <div class="page-head">
+        <div>
+            <h1>评论管理</h1>
+            <p>全站评论，按时间倒序。</p>
+        </div>
+        <span class="badge badge--accent" th:text="${#lists.size(comments)} + ' 条'">0 条</span>
+    </div>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <th:block th:replace="~{fragments :: adminNav('comment')}"></th:block>
+        </aside>
+
+        <section>
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>头像</th>
+                        <th>内容</th>
+                        <th>文章</th>
+                        <th>用户</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="comment : ${comments}">
+                        <td><img class="avatar" th:src="${comment.userPic}" alt=""></td>
+                        <td><span class="truncate" style="display:block"
+                                  th:text="${comment.comment}">评论</span></td>
+                        <td>
+                            <a class="truncate" style="display:block;max-width:200px"
+                               th:href="@{/article(articleId=${comment.articleId})}"
+                               th:text="${comment.articleTitle}">文章</a>
+                        </td>
+                        <td th:text="${comment.username}">alice</td>
+                        <td class="mono dim" th:text="${comment.lastModifiedText}">2026-01-01 00:00</td>
+                        <td class="cell-actions">
+                            <form action="/admin-delete-comment-by-id" method="post"
+                                  onsubmit="return confirm('删除这条评论？');">
+                                <input type="hidden" name="comment-id" th:value="${comment.id}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button class="btn btn--sm btn--danger" type="submit">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="empty" th:if="${#lists.isEmpty(comments)}" style="border:0">还没有评论</div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

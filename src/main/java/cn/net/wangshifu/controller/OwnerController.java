@@ -1,127 +1,51 @@
 package cn.net.wangshifu.controller;
 
-
-import cn.net.wangshifu.bo.AdminApplyBo;
-import cn.net.wangshifu.bo.UserRoleBo;
-import cn.net.wangshifu.dao.UserDao;
-import cn.net.wangshifu.model.AdminApply;
-import cn.net.wangshifu.model.User;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import cn.net.wangshifu.service.AdminApplyService;
+import cn.net.wangshifu.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.ResourceBundle;
 
 @Controller
 public class OwnerController {
 
-    @RequestMapping(value = "/owner", method = RequestMethod.GET)
-    public ModelAndView owner(@RequestParam("page") String page) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("id", userDetail.getUsername());
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            UserDao userDao = (UserDao) context.getBean("userDao");
+    private final AdminApplyService adminApplyService;
+    private final UserService userService;
 
-            int userId = Integer.parseInt(userDetail.getUsername());
-            User user = userDao.selectUserById(userId);
-            model.addObject("username", user.getUsername());
-            model.addObject("userPic", user.getUserPic());
-
-            if (AdminApplyBo.hadApplyAdmin(context, userId)) {
-                model.addObject("hadApplyAdmin", "true");
-            } else {
-                model.addObject("hadApplyAdmin", "false");
-            }
-
-            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
-            String blogName = rb.getString("blog.name");
-            model.addObject("blogName", blogName);
-
-            if (page.equals("admin-request")) {
-                List<AdminApply> adminApplies = AdminApplyBo.selectAdminApply(context);
-                model.addObject("adminApplies", adminApplies);
-                model.setViewName("owner_admin_request.html");
-            } else if (page.equals("admin-list")) {
-                List<Integer> adminIds = UserRoleBo.selectAllAdmin(context);
-
-                if (adminIds.size() != 0) {
-                    List<User> admins = userDao.selectUsersByIds(adminIds);
-                    model.addObject("admins", admins);
-                }
-                model.setViewName("owner_admin_list.html");
-            }
-
-
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    public OwnerController(AdminApplyService adminApplyService, UserService userService) {
+        this.adminApplyService = adminApplyService;
+        this.userService = userService;
     }
 
-    @RequestMapping(value = "/owner-deleteAdminRole", method = RequestMethod.POST)
-    public ModelAndView deleteAdminRole(
-            @RequestParam("deleteAdminRole") String deleteAdminRole,
-            @RequestParam("user-id") String adminId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("id", userDetail.getUsername());
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            if (deleteAdminRole.equals("true")) {
-                UserRoleBo.deleteAdminRole(context, Integer.parseInt(adminId));
-            }
-            model.setViewName("redirect:/owner?page=admin-list");
-
-        } else {
-            model.setViewName("redirect:/login?notlogin");
+    @GetMapping("/owner")
+    public String owner(@RequestParam(value = "page", required = false) String page, Model model) {
+        if ("admin-list".equals(page)) {
+            model.addAttribute("admins", userService.listAdmins());
+            return "owner_admin_list";
         }
-        return model;
+        model.addAttribute("adminApplies", adminApplyService.list());
+        return "owner_admin_request";
     }
 
-    @RequestMapping(value = "/owner-passAdminApply", method = RequestMethod.POST)
-    public ModelAndView passAdminApply(
-            @RequestParam("passAdminApply") String passAdminApply,
-            @RequestParam("user-id") String requestUserId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("id", userDetail.getUsername());
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-
-            if (passAdminApply.equals("true")) {
-                AdminApplyBo.deleteAdminApply(context, Integer.parseInt(requestUserId));
-                UserRoleBo.addAdminRole(context, Integer.parseInt(requestUserId));
-            } else if (passAdminApply.equals("false")) {
-                AdminApplyBo.deleteAdminApply(context, Integer.parseInt(requestUserId));
-            }
-            model.setViewName("redirect:/owner?page=admin-request");
-
+    @PostMapping("/owner-passAdminApply")
+    public String passAdminApply(@RequestParam("passAdminApply") String pass,
+                                 @RequestParam("user-id") int userId) {
+        if ("true".equals(pass)) {
+            adminApplyService.approve(userId);
         } else {
-            model.setViewName("redirect:/login?notlogin");
+            adminApplyService.reject(userId);
         }
-        return model;
+        return "redirect:/owner?page=admin-request";
     }
 
+    @PostMapping("/owner-deleteAdminRole")
+    public String deleteAdminRole(@RequestParam("deleteAdminRole") String confirm,
+                                  @RequestParam("user-id") int userId) {
+        if ("true".equals(confirm)) {
+            userService.revokeRole(userId, UserService.ROLE_ADMIN);
+        }
+        return "redirect:/owner?page=admin-list";
+    }
 }

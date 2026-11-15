@@ -1,19 +1,13 @@
 package cn.net.wangshifu.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ErrorController {
 
-    @RequestMapping(value = "/403")
-    public String err403() {
-        return "403.html";
+    @GetMapping("/403")
+    public String forbidden() {
+        return "403";
     }
-
-    @RequestMapping(value = "*")
-    public String err404() {
-        return "404.html";
-    }
-
 }

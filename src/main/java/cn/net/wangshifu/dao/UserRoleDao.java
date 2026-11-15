@@ -1,15 +1,22 @@
 package cn.net.wangshifu.dao;
 
-import cn.net.wangshifu.model.User;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface UserRoleDao {
-    void addAdminRole(int userId);
 
-    List<Integer> selectAllAdmin();
+    void insertRole(@Param("userId") int userId, @Param("role") String role);
 
-    void deleteAdminRole(int adminId);
+    void deleteRole(@Param("userId") int userId, @Param("role") String role);
 
-    List<Integer> selectAllCommonUserId();
+    List<String> selectRolesByUserId(int userId);
+
+    /** Users that have ROLE_ADMIN but not ROLE_OWNER. */
+    List<Integer> selectAdminUserIds();
+
+    /** Users that only have ROLE_USER. */
+    List<Integer> selectCommonUserIds();
 }

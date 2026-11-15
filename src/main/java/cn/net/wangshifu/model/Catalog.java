@@ -1,8 +1,12 @@
 package cn.net.wangshifu.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Catalog implements Comparable {
+/**
+ * A node of the catalog tree. {@code parentId == 0} means "top level".
+ */
+public class Catalog implements Comparable<Catalog>, Serializable {
     private int id;
     private String name;
     private int parentId;
@@ -41,17 +45,12 @@ public class Catalog implements Comparable {
     }
 
     @Override
-    public String toString() {
-        return "Catalog{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", parentId=" + parentId +
-                ", subCatalogs=" + subCatalogs +
-                '}';
+    public int compareTo(Catalog that) {
+        return Integer.compare(this.id, that.id);
     }
 
-    public int compareTo(Object o) {
-        Catalog that = (Catalog) o;
-        return this.id - that.id;
+    @Override
+    public String toString() {
+        return "Catalog{id=" + id + ", name='" + name + "', parentId=" + parentId + '}';
     }
 }

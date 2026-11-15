@@ -1,26 +1,29 @@
 package cn.net.wangshifu.dao;
 
 import cn.net.wangshifu.model.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface UserDao {
+
     User selectUserById(int id);
 
-    String addUser(User user);
-    void updateUser(User user);
+    User selectUserByUsername(String username);
 
-    void updateUserWithoutPic(User user);
-    void deleteUser(int id);
+    List<User> selectUsersByIds(@Param("ids") List<Integer> ids);
 
-    List<User> selectUsersByIds(List<Integer> userIds);
+    List<User> selectDisabledUsers();
 
-    List<User> selectDisableUser();
+    void insertUser(User user);
 
-    void disableUser(int userId);
+    void updateProfile(@Param("id") int id, @Param("username") String username, @Param("userPic") String userPic);
 
-    void enableUser(int userId);
+    void updatePassword(@Param("id") int id, @Param("passwordHash") String passwordHash);
 
-    void changePassword(@Param("userId") int userId, @Param("password") String password);
+    void updateEnabled(@Param("id") int id, @Param("enabled") boolean enabled);
+
+    int countByUsername(String username);
 }

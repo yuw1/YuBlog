@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('封禁用户')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar('admin')}"></div>
+
+<main class="shell">
+    <div class="page-head">
+        <div>
+            <h1>封禁用户</h1>
+            <p>解封恢复登录；清空会删掉该用户的所有文章和评论。</p>
+        </div>
+        <span class="badge badge--accent" th:text="${#lists.size(disableUsers)} + ' 个账号'">0 个</span>
+    </div>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <th:block th:replace="~{fragments :: adminNav('user-disable')}"></th:block>
+        </aside>
+
+        <section>
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>头像</th>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>主页</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="u : ${disableUsers}">
+                        <td><img class="avatar" th:src="${u.userPic}" alt=""></td>
+                        <td class="mono" th:text="${u.id}">1</td>
+                        <td th:text="${u.username}">alice</td>
+                        <td><a class="btn btn--sm" th:href="@{/user(userId=${u.id})}">查看</a></td>
+                        <td class="cell-actions">
+                            <form action="/admin-enable-user" method="post">
+                                <input type="hidden" name="user-id" th:value="${u.id}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button class="btn btn--sm" type="submit">解封</button>
+                            </form>
+                            <form action="/admin-clear-all-article-comment" method="post"
+                                  onsubmit="return confirm('这会永久删除该用户的所有文章和评论，确定？');">
+                                <input type="hidden" name="user-id" th:value="${u.id}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button class="btn btn--sm btn--danger" type="submit">清空内容</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="empty" th:if="${#lists.isEmpty(disableUsers)}" style="border:0">没有被封禁的账号</div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
