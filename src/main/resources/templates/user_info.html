@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('个人资料')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar('user')}"></div>
+
+<main class="shell">
+    <div class="page-head">
+        <div>
+            <h1 th:text="${showUsername}">用户</h1>
+            <p>
+                <span class="mono">ID <span th:text="${showUserId}">0</span></span>
+                <span class="dim"> · </span>
+                <span th:text="${isOwn} == 'true' ? '这是你自己' : '他人主页'">这是你自己</span>
+            </p>
+        </div>
+        <nav class="segmented" aria-label="个人页签">
+            <a th:href="@{/user(userId=${showUserId},page='user')}"
+               th:attr="aria-current=${page == 'user'} ? 'page' : null">资料</a>
+            <a th:href="@{/user(userId=${showUserId},page='article')}"
+               th:attr="aria-current=${page == 'article'} ? 'page' : null">文章</a>
+            <a th:href="@{/user(userId=${showUserId},page='comment')}"
+               th:attr="aria-current=${page == 'comment'} ? 'page' : null">评论</a>
+        </nav>
+    </div>
+
+    <div class="alert alert--error" th:if="${error != null}" style="margin-bottom:14px" th:text="${error}"></div>
+    <div class="alert alert--ok" th:if="${ok != null}" style="margin-bottom:14px" th:text="${ok}"></div>
+
+    <!-- ------------------------------------------------------------ 资料 -->
+    <section class="layout--narrow" th:if="${page == 'user'}">
+        <div class="card">
+            <div class="card__head">
+                <h2 class="card__title">个人信息</h2>
+                <span class="badge" th:text="${isOwn} == 'true' ? '可编辑' : '只读'">只读</span>
+            </div>
+            <div class="card__body">
+                <div style="display:flex;gap:20px;align-items:center;margin-bottom:22px">
+                    <img class="avatar avatar--lg" id="show" th:src="${showUserPic}" alt="">
+                    <div>
+                        <div style="font-weight:650" th:text="${showUsername}">用户</div>
+                        <div class="mono dim">ID <span th:text="${showUserId}">0</span></div>
+                    </div>
+                </div>
+
+                <form th:if="${isOwn} == 'true'" method="post" th:action="@{/changeUserInfo}"
+                      enctype="multipart/form-data" class="form-grid">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="user-name">用户名</label>
+                            <input class="input" type="text" name="user-name" id="user-name"
+                                   th:value="${showUsername}" minlength="2" maxlength="20" required>
+                        </div>
+                        <div class="field">
+                            <label for="file">头像</label>
+                            <input class="input" type="file" name="file" id="file" accept="image/*">
+                            <span class="mono dim">jpg / png / gif / webp，最大 5MB，会裁成 150×150</span>
+                        </div>
+                    </div>
+                    <div style="display:flex;justify-content:flex-end">
+                        <button type="submit" class="btn btn--primary">保存个人信息</button>
+                    </div>
+                </form>
+
+                <div th:unless="${isOwn} == 'true'" class="alert">
+                    你正在查看别人的主页，只有本人可以修改资料。
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:18px" th:if="${isOwn} == 'true'">
+            <div class="card__head">
+                <h2 class="card__title">修改密码</h2>
+            </div>
+            <div class="card__body">
+                <form method="post" action="/changePassword" class="form-grid" data-password-form>
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="pwd">新密码</label>
+                            <input class="input" type="password" name="pwd" id="pwd"
+                                   autocomplete="new-password" minlength="6" required>
+                        </div>
+                        <div class="field">
+                            <label for="pwd_confirm">确认新密码</label>
+                            <input class="input" type="password" name="pwd_confirm" id="pwd_confirm"
+                                   autocomplete="new-password" minlength="6" required>
+                            <span class="mono dim" data-password-tip></span>
+                        </div>
+                    </div>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div style="display:flex;justify-content:flex-end">
+                        <button type="submit" class="btn">确认修改密码</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ 文章 -->
+    <section class="layout--narrow" th:if="${page == 'article'}">
+        <div class="card">
+            <div class="card__head">
+                <h2 class="card__title">发表的文章</h2>
+                <span class="badge" th:text="${#lists.size(articles)} + ' 篇'">0 篇</span>
+            </div>
+            <div class="card__body">
+                <div class="posts">
+                    <div class="post" th:each="article : ${articles}" style="cursor:default">
+                        <div style="display:flex;gap:12px;align-items:flex-start">
+                            <a class="post__title" style="flex:1"
+                               th:href="@{/article(articleId=${article.id})}"
+                               th:text="${article.title}">标题</a>
+                            <form th:if="${isOwn} == 'true'" action="/delete-article-by-id" method="post"
+                                  onsubmit="return confirm('确定删除这篇文章？');">
+                                <input type="hidden" name="article-id" th:value="${article.id}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn--sm btn--danger">删除</button>
+                            </form>
+                        </div>
+                        <div class="post__meta">
+                            <span class="badge badge--accent" th:text="${article.catalogName}">分类</span>
+                            <span class="mono" th:text="${article.lastModifiedText}">时间</span>
+                        </div>
+                        <p class="post__excerpt" th:if="${article.articleAbstract != null}"
+                           th:text="${article.articleAbstract}">摘要</p>
+                    </div>
+                </div>
+                <div class="empty" th:if="${#lists.isEmpty(articles)}">
+                    <strong>还没有发表过文章</strong>
+                    <span><a href="/write-article">去写一篇</a></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ 评论 -->
+    <section class="layout--narrow" th:if="${page == 'comment'}">
+        <div class="card">
+            <div class="card__head">
+                <h2 class="card__title">发表的评论</h2>
+                <span class="badge" th:text="${#lists.size(comments)} + ' 条'">0 条</span>
+            </div>
+            <div class="card__body">
+                <div class="comment" th:each="comment : ${comments}" style="grid-template-columns:1fr">
+                    <div>
+                        <div style="display:flex;gap:10px;align-items:flex-start">
+                            <div class="comment__body" style="flex:1;margin-top:0" th:text="${comment.comment}">评论</div>
+                            <form th:if="${isOwn} == 'true'" action="/delete-comment-by-id" method="post"
+                                  onsubmit="return confirm('确定删除这条评论？');">
+                                <input type="hidden" name="comment-id" th:value="${comment.id}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn--sm btn--danger">删除</button>
+                            </form>
+                        </div>
+                        <div class="comment__head" style="margin-top:6px">
+                            <span>评论于</span>
+                            <a th:href="@{/article(articleId=${comment.articleId})}"
+                               th:text="${comment.articleTitle}">文章</a>
+                            <span class="mono" th:text="${comment.lastModifiedText}">时间</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="empty" th:if="${#lists.isEmpty(comments)}">
+                    <strong>还没有发表过评论</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

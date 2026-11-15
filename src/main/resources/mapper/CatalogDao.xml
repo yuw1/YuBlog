@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.wangshifu.dao.CatalogDao">
+
+    <resultMap id="catalogMap" type="cn.net.wangshifu.model.Catalog">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="catalogMap">
+        SELECT id, name, parent_id FROM catalog_tree ORDER BY id
+    </select>
+
+    <select id="selectById" parameterType="int" resultMap="catalogMap">
+        SELECT id, name, parent_id FROM catalog_tree WHERE id = #{id}
+    </select>
+
+    <insert id="insertCatalog">
+        INSERT INTO catalog_tree(name, parent_id) VALUES (#{name}, #{parentId})
+    </insert>
+
+    <update id="renameCatalog">
+        UPDATE catalog_tree SET name = #{name} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteCatalog" parameterType="int">
+        DELETE FROM catalog_tree WHERE id = #{id}
+    </delete>
+
+    <select id="countChildren" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM catalog_tree WHERE parent_id = #{id}
+    </select>
+
+    <select id="countArticles" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM article WHERE catalog_id = #{id}
+    </select>
+</mapper>

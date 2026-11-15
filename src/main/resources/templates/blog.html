@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('博客')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar('blog')}"></div>
+
+<main class="shell">
+    <div class="page-head">
+        <div>
+            <h1>博客</h1>
+            <p th:if="${!#lists.isEmpty(route)}">
+                <span th:each="node,nodeStat : ${route}">
+                    <a th:unless="${nodeStat.last}" th:href="@{/blog(catalogId=${node.id})}"
+                       th:text="${node.name}">目录</a><span th:unless="${nodeStat.last}" class="dim"> / </span>
+                    <span th:if="${nodeStat.last}" class="gradient-text" th:text="${node.name}">目录</span>
+                </span>
+            </p>
+        </div>
+        <a class="btn btn--sm" href="/write-article">写文章</a>
+    </div>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar__title">目录</div>
+            <nav class="cat-tree" aria-label="文章目录">
+                <th:block th:if="${catalogRoot != null and catalogRoot.id != 0}">
+                    <th:block th:replace="~{fragments :: catNode(${catalogRoot}, ${catalogId})}"></th:block>
+                </th:block>
+                <div class="empty" th:if="${catalogRoot == null or catalogRoot.id == 0}">
+                    还没有创建分类
+                </div>
+            </nav>
+        </aside>
+
+        <section>
+            <div class="posts">
+                <a class="post" th:each="article : ${articles}"
+                   th:href="@{/article(articleId=${article.id})}">
+                    <h3 class="post__title" th:text="${article.title}">标题</h3>
+                    <div class="post__meta">
+                        <span class="badge badge--accent" th:text="${article.catalogName}">分类</span>
+                        <span th:text="${article.authorUsername}">作者</span>
+                        <span class="mono" th:text="${article.lastModifiedText}">2026-01-01 00:00</span>
+                    </div>
+                    <p class="post__excerpt"
+                       th:if="${article.articleAbstract != null and !article.articleAbstract.isEmpty()}"
+                       th:text="${article.articleAbstract}">摘要</p>
+                    <span class="post__arrow">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M13 6l6 6-6 6"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <div class="empty" th:if="${#lists.isEmpty(articles)}">
+                    <strong>这个分类下还没有文章</strong>
+                    <span>换个分类，或者去写一篇。</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

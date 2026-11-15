@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<!-- ============================================================ <head> -->
+<head th:fragment="head(title)">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title + ' · ' + (blogName != null ? blogName : 'YuBlog')}">YuBlog</title>
+    <meta name="theme-color" content="#08080d">
+    <link rel="icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/yublog.css">
+    <meta name="csrf-token" th:content="${_csrf.token}">
+    <meta name="csrf-header" th:content="${_csrf.headerName}">
+    <script>
+        // 在首帧之前定主题，避免闪一下默认色
+        (function () {
+            try {
+                var t = localStorage.getItem('yublog-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) {
+            }
+        })();
+    </script>
+</head>
+
+<!-- ==================================================== 顶栏 + 抽屉 -->
+<th:block th:fragment="topbar(active)">
+
+    <header class="topbar">
+        <div class="shell topbar__inner">
+            <a class="brand" href="/">
+                <span class="brand__mark">Y</span>
+                <span class="brand__text" th:text="${blogName}">YuBlog</span>
+            </a>
+
+            <nav class="nav" aria-label="主导航">
+                <a href="/" th:attr="aria-current=${active == 'home'} ? 'page' : null">首页</a>
+                <a href="/blog" th:attr="aria-current=${active == 'blog'} ? 'page' : null">博客</a>
+                <a href="/write-article" th:attr="aria-current=${active == 'write'} ? 'page' : null">写文章</a>
+                <a sec:authorize="hasRole('ADMIN')" href="/admin?page=user"
+                   th:attr="aria-current=${active == 'admin'} ? 'page' : null">管理</a>
+                <a sec:authorize="hasRole('OWNER')" href="/owner?page=admin-request"
+                   th:attr="aria-current=${active == 'owner'} ? 'page' : null">站长</a>
+            </nav>
+
+            <div class="topbar__actions">
+                <button type="button" class="btn btn--icon btn--ghost" data-theme-toggle aria-pressed="false"
+                        title="切换主题" aria-label="切换主题">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+                    </svg>
+                </button>
+
+                <button type="button" class="btn btn--icon btn--ghost" data-drawer-open aria-label="打开个人面板">
+                    <img class="avatar" th:src="${userPic}" alt="">
+                </button>
+
+                <details class="menu">
+                    <summary class="btn btn--ghost" aria-label="账号菜单">
+                        <span th:text="${username}">user</span>
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </summary>
+                    <div class="menu__panel">
+                        <a href="/user">个人主页</a>
+                        <a href="/write-article">写文章</a>
+                        <a sec:authorize="hasRole('ADMIN')" href="/admin?page=user">博客管理</a>
+                        <a sec:authorize="hasRole('OWNER')" href="/owner?page=admin-request">管理员管理</a>
+                        <div class="menu__sep"></div>
+                        <form action="/logout" method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <button type="submit">退出登录</button>
+                        </form>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </header>
+
+    <div class="drawer" data-drawer data-open="false" role="dialog" aria-modal="true" aria-label="个人面板">
+        <div class="drawer__backdrop"></div>
+        <aside class="drawer__panel">
+            <button type="button" class="btn btn--icon btn--ghost drawer__close" data-drawer-close
+                    aria-label="关闭">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round">
+                    <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="drawer__profile">
+                <img class="avatar avatar--lg" th:src="${userPic}" alt="">
+                <div>
+                    <div class="drawer__name" th:text="${username}">user</div>
+                    <div class="mono dim">ID <span th:text="${userId}">0</span></div>
+                </div>
+            </div>
+
+            <nav class="drawer__links" aria-label="个人导航">
+                <a href="/user?page=user">我的资料</a>
+                <a href="/user?page=article">已发表文章</a>
+                <a href="/user?page=comment">已发表评论</a>
+                <a href="/write-article">发表文章</a>
+
+                <div class="drawer__group">管理员权限</div>
+                <a sec:authorize="hasRole('ADMIN')" href="/admin?page=user">博客管理</a>
+                <span sec:authorize="hasRole('ADMIN')" class="badge badge--accent">已是管理员</span>
+
+                <a sec:authorize="!hasRole('ADMIN')" th:if="${hadApplyAdmin} == 'true'" class="badge badge--accent">
+                    已申请，等待审核
+                </a>
+                <button sec:authorize="!hasRole('ADMIN')" th:if="${hadApplyAdmin} == 'false'"
+                        type="button" class="btn btn--primary btn--sm" data-apply-admin="/applyToAdmin">
+                    申请成为管理员
+                </button>
+
+                <div class="drawer__group">站长权限</div>
+                <a sec:authorize="hasRole('OWNER')" href="/owner?page=admin-request">管理员申请</a>
+                <a sec:authorize="hasRole('OWNER')" href="/owner?page=admin-list">管理员名单</a>
+            </nav>
+        </aside>
+    </div>
+</th:block>
+
+<!-- ========================================================== 页脚 -->
+<footer th:fragment="footer" class="footer">
+    <div class="shell footer__inner">
+        <div>
+            © <span th:text="${year}">2026</span> Yu Wang ·
+            <span th:text="${blogName}">YuBlog</span>
+        </div>
+        <div class="footer__links">
+            <a href="/">首页</a>
+            <a href="/blog">博客</a>
+            <a href="/write-article">写文章</a>
+        </div>
+    </div>
+    <a class="to-top" href="#top" data-to-top aria-label="回到顶部">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+    </a>
+    <script src="/js/yublog.js"></script>
+</footer>
+
+<!-- ================================================= 管理台左侧导航 -->
+<nav th:fragment="adminNav(active)" class="admin-nav" aria-label="博客管理">
+    <a href="/admin?page=user" th:attr="aria-current=${active == 'user'} ? 'page' : null">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.9"/>
+        </svg>
+        普通用户
+    </a>
+    <a href="/admin?page=article" th:attr="aria-current=${active == 'article'} ? 'page' : null">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M8 13h8M8 17h5"/>
+        </svg>
+        文章
+    </a>
+    <a href="/admin?page=comment" th:attr="aria-current=${active == 'comment'} ? 'page' : null">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        评论
+    </a>
+    <a href="/admin?page=user-disable" th:attr="aria-current=${active == 'user-disable'} ? 'page' : null">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="m5.6 5.6 12.8 12.8"/>
+        </svg>
+        封禁用户
+    </a>
+    <a href="/admin?page=catalog" th:attr="aria-current=${active == 'catalog'} ? 'page' : null">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        </svg>
+        目录
+    </a>
+</nav>
+
+<!-- ================================================= 站长左侧导航 -->
+<nav th:fragment="ownerNav(active)" class="admin-nav" aria-label="站长管理">
+    <a href="/owner?page=admin-request" th:attr="aria-current=${active == 'request'} ? 'page' : null">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="m17 11 2 2 4-4"/>
+        </svg>
+        管理员申请
+    </a>
+    <a href="/owner?page=admin-list" th:attr="aria-current=${active == 'list'} ? 'page' : null">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+        </svg>
+        管理员名单
+    </a>
+</nav>
+
+<!-- ================================================ 目录树（链接版） -->
+<!-- 注意：th:if / th:each 不能和 th:replace 写在同一个标签上：
+     th:replace 会先执行，条件就失效了。所以这里都套一层 th:block。 -->
+<th:block th:fragment="catNode(node, selectedId)">
+    <th:block th:if="${node.subCatalogs != null and !node.subCatalogs.isEmpty()}">
+        <details>
+            <summary th:text="${node.name}">目录</summary>
+            <div>
+                <a class="leaf" th:href="@{/blog(catalogId=${node.id})}"
+                   th:text="'只看「' + ${node.name} + '」'"
+                   th:attr="aria-current=${selectedId == node.id} ? 'page' : null">只看本类</a>
+                <th:block th:each="child : ${node.subCatalogs}">
+                    <th:block th:replace="~{fragments :: catNode(${child}, ${selectedId})}"></th:block>
+                </th:block>
+            </div>
+        </details>
+    </th:block>
+    <a th:unless="${node.subCatalogs != null and !node.subCatalogs.isEmpty()}" class="leaf"
+       th:href="@{/blog(catalogId=${node.id})}" th:text="${node.name}"
+       th:attr="aria-current=${selectedId == node.id} ? 'page' : null">目录</a>
+</th:block>
+
+<!-- ================================================ 目录树（纯文本版） -->
+<th:block th:fragment="catPlain(node)">
+    <th:block th:if="${node.subCatalogs != null and !node.subCatalogs.isEmpty()}">
+        <details>
+            <summary th:text="${node.name}">目录</summary>
+            <div>
+                <th:block th:each="child : ${node.subCatalogs}">
+                    <th:block th:replace="~{fragments :: catPlain(${child})}"></th:block>
+                </th:block>
+            </div>
+        </details>
+    </th:block>
+    <a th:unless="${node.subCatalogs != null and !node.subCatalogs.isEmpty()}" class="leaf"
+       th:text="${node.name}">目录</a>
+</th:block>
+
+<!-- =============================================== 目录选择（编辑器） -->
+<th:block th:fragment="catPick(node)">
+    <th:block th:if="${node.subCatalogs != null and !node.subCatalogs.isEmpty()}">
+        <details>
+            <summary th:text="${node.name}">目录</summary>
+            <div>
+                <button type="button" class="leaf" th:text="'选择「' + ${node.name} + '」'"
+                        th:attr="data-catalog-id=${node.id},data-catalog-name=${node.name}">选择</button>
+                <th:block th:each="child : ${node.subCatalogs}">
+                    <th:block th:replace="~{fragments :: catPick(${child})}"></th:block>
+                </th:block>
+            </div>
+        </details>
+    </th:block>
+    <button th:unless="${node.subCatalogs != null and !node.subCatalogs.isEmpty()}" type="button" class="leaf"
+            th:text="${node.name}"
+            th:attr="data-catalog-id=${node.id},data-catalog-name=${node.name}">选择</button>
+</th:block>
+
+</body>
+</html>

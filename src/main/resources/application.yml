@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: yublog
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      pool-name: yublog-pool
+  sql:
+    init:
+      # 生产环境用 resources/schema.sql 手动初始化；本地 demo 用 H2 自动建表（见 application-demo.yml）
+      mode: never
+  thymeleaf:
+    cache: false
+  messages:
+    basename: bloginfo
+    encoding: UTF-8
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+  web:
+    resources:
+      cache:
+        period: 3600
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.net.wangshifu.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+yublog:
+  # 用户头像存放目录，必须在 webapp 之外，否则上传的文件可能被容器当作可执行资源
+  upload-dir: ${UPLOAD_DIR:./data/user-pic}
+  # 默认头像（相对 static 目录）
+  default-avatar: /img/user-pic/default.jpg
+  # 文章正文允许的 HTML 标签/属性由 HtmlSanitizer 统一控制
+
+logging:
+  level:
+    root: INFO
+    cn.net.wangshifu: INFO

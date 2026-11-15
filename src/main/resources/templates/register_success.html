@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('注册成功')}"></head>
+<body>
+<div class="auth" style="grid-template-columns:minmax(0,1fr)">
+    <section class="auth__form">
+        <div class="auth__box" style="text-align:center">
+            <div class="brand" style="justify-content:center;margin-bottom:26px">
+                <span class="brand__mark">Y</span>
+                <span class="brand__text" th:text="${blogName}">YuBlog</span>
+            </div>
+
+            <h2 class="auth__title gradient-text">注册成功</h2>
+            <p class="auth__hint">记住用户名，登录时要用它。</p>
+
+            <div class="card" style="text-align:left">
+                <div class="card__body form-grid">
+                    <div class="field">
+                        <label>用户名</label>
+                        <input class="input" th:value="${username}" readonly>
+                    </div>
+                    <div class="field">
+                        <label>用户 ID</label>
+                        <input class="input mono" th:value="${id}" readonly>
+                    </div>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                </div>
+            </div>
+
+            <a class="btn btn--primary" href="/login" style="width:100%;margin-top:18px">去登录</a>
+        </div>
+    </section>
+</div>
+<script src="/js/yublog.js"></script>
+</body>
+</html>

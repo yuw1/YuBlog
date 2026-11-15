@@ -1,12 +1,14 @@
 package cn.net.wangshifu.model;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class AdminApply {
+public class AdminApply implements Serializable {
     private int id;
     private int userId;
     private String userName;
-    private Timestamp lastApplyTime;
+    private LocalDateTime lastApplyTime;
 
     public int getId() {
         return id;
@@ -15,7 +17,6 @@ public class AdminApply {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public int getUserId() {
         return userId;
@@ -33,21 +34,16 @@ public class AdminApply {
         this.userName = userName;
     }
 
-    public Timestamp getLastApplyTime() {
+    public LocalDateTime getLastApplyTime() {
         return lastApplyTime;
     }
 
-    public void setLastApplyTime(Timestamp lastApplyTime) {
+    public void setLastApplyTime(LocalDateTime lastApplyTime) {
         this.lastApplyTime = lastApplyTime;
     }
 
-    @Override
-    public String toString() {
-        return "AdminApply{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", lastApplyTime=" + lastApplyTime +
-                '}';
+    /** Rendered by the templates; avoids printing {@code LocalDateTime.toString()}. */
+    public String getLastApplyTimeText() {
+        return lastApplyTime == null ? "" : lastApplyTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }

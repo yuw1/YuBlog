@@ -1,304 +1,132 @@
 package cn.net.wangshifu.controller;
 
-import cn.net.wangshifu.bo.AdminApplyBo;
-import cn.net.wangshifu.bo.ArticleBo;
-import cn.net.wangshifu.bo.CommentBo;
-import cn.net.wangshifu.bo.UserBo;
-import cn.net.wangshifu.dao.*;
-import cn.net.wangshifu.model.Article;
-import cn.net.wangshifu.model.Catalog;
-import cn.net.wangshifu.model.Comment;
 import cn.net.wangshifu.model.User;
-import cn.net.wangshifu.util.CatalogUtil;
-import com.alibaba.fastjson.JSON;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import cn.net.wangshifu.service.AdminApplyService;
+import cn.net.wangshifu.service.ArticleService;
+import cn.net.wangshifu.service.CatalogService;
+import cn.net.wangshifu.service.CommentService;
+import cn.net.wangshifu.service.CurrentUser;
+import cn.net.wangshifu.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
+/**
+ * Admin console. Access control lives in {@code SecurityConfig}; the controller no longer repeats
+ * a "are you logged in" check in every method.
+ */
 @Controller
 public class AdminController {
 
-    @RequestMapping("/admin")
-    public ModelAndView admin(
-            @RequestParam(value = "page", required = false) String page
-    ) {
-        if (page == null) {
-            page = "user";
-        }
+    private final UserService userService;
+    private final ArticleService articleService;
+    private final CommentService commentService;
+    private final CatalogService catalogService;
+    private final AdminApplyService adminApplyService;
+    private final CurrentUser currentUser;
 
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("id", userDetail.getUsername());
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            UserDao userDao = (UserDao) context.getBean("userDao");
-
-            int userId = Integer.parseInt(userDetail.getUsername());
-            User user = userDao.selectUserById(userId);
-            model.addObject("username", user.getUsername());
-            model.addObject("userPic", user.getUserPic());
-
-            if (AdminApplyBo.hadApplyAdmin(context, userId)) {
-                model.addObject("hadApplyAdmin", "true");
-            } else {
-                model.addObject("hadApplyAdmin", "false");
-            }
-
-            ResourceBundle rb = ResourceBundle.getBundle("bloginfo".trim());
-            String blogName = rb.getString("blog.name");
-            model.addObject("blogName", blogName);
-
-            if (page.equals("user")) {
-                List<User> commonUsers = UserBo.selectAllCommonUser(context);
-                model.addObject("commonUsers", commonUsers);
-                model.setViewName("admin_user.html");
-            } else if (page.equals("article")) {
-                List<Article> articles = ArticleBo.selectAllArticle(context);
-                model.addObject("articles", articles);
-                model.setViewName("admin_article.html");
-            } else if (page.equals("comment")) {
-                List<Comment> comments = CommentBo.selectAllComment(context);
-                model.addObject("comments", comments);
-                model.setViewName("admin_comment.html");
-            } else if (page.equals("user-disable")) {
-                List<User> disableUsers = UserBo.selectDisableUser(context);
-                model.addObject("disableUsers", disableUsers);
-                model.setViewName("admin_user_disable.html");
-            } else if (page.equals("catalog")) {
-                CatalogDao catalogDao = (CatalogDao) context.getBean("catalogDao");
-                List<Catalog> catalogs = catalogDao.selectAllCatalog();
-                Catalog root = CatalogUtil.catalog2Tree(catalogs);
-
-                model.addObject("catalogRoot", root);
-                model.addObject("catalogs", catalogs);
-                model.setViewName("admin_catalog.html");
-            } else {
-                model.setViewName("admin_user.html");
-            }
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    public AdminController(UserService userService, ArticleService articleService, CommentService commentService,
+                           CatalogService catalogService, AdminApplyService adminApplyService,
+                           CurrentUser currentUser) {
+        this.userService = userService;
+        this.articleService = articleService;
+        this.commentService = commentService;
+        this.catalogService = catalogService;
+        this.adminApplyService = adminApplyService;
+        this.currentUser = currentUser;
     }
 
-    @RequestMapping(value = "/applyToAdmin", method = RequestMethod.POST)
+    @GetMapping("/admin")
+    public String admin(@RequestParam(value = "page", required = false) String page, Model model) {
+        String requested = page == null ? "user" : page;
+        return switch (requested) {
+            case "article" -> {
+                model.addAttribute("articles", articleService.all());
+                yield "admin_article";
+            }
+            case "comment" -> {
+                model.addAttribute("comments", commentService.all());
+                yield "admin_comment";
+            }
+            case "user-disable" -> {
+                model.addAttribute("disableUsers", userService.listDisabledUsers());
+                yield "admin_user_disable";
+            }
+            case "catalog" -> {
+                // one list, so the template can tell "has children" from the same instances
+                var catalogs = catalogService.all();
+                model.addAttribute("catalogs", catalogs);
+                model.addAttribute("catalogRoot", cn.net.wangshifu.util.CatalogUtil.toTree(catalogs));
+                yield "admin_catalog";
+            }
+            default -> {
+                model.addAttribute("commonUsers", userService.listCommonUsers());
+                yield "admin_user";
+            }
+        };
+    }
+
+    @PostMapping("/applyToAdmin")
     @ResponseBody
-    public String applyToAdmin() {
-        Map<String, String> mapper = new HashMap<String, String>();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            String userId = userDetail.getUsername();
-            AdminApplyDao adminApplyDao = (AdminApplyDao) context.getBean("adminApplyDao");
-            adminApplyDao.addAdminApply(Integer.parseInt(userId));
-            mapper.put("state", "success");
-        } else {
-            mapper.put("state", "fail");
-        }
-        return JSON.toJSONString(mapper);
+    public Map<String, String> applyToAdmin() {
+        adminApplyService.apply(currentUser.require().getId());
+        return Map.of("state", "success");
     }
 
-    @RequestMapping(value = "/admin-disable-user", method = RequestMethod.POST)
-    public ModelAndView disableUser(
-            @RequestParam(value = "user-id") String disableUserId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            String userId = userDetail.getUsername();
-            UserDao userDao = (UserDao) context.getBean("userDao");
-            userDao.disableUser(Integer.parseInt(disableUserId));
-            model.setViewName("redirect:/admin?page=user");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-disable-user")
+    public String disableUser(@RequestParam("user-id") int userId) {
+        userService.setEnabled(userId, false);
+        return "redirect:/admin?page=user";
     }
 
-    @RequestMapping(value = "/admin-enable-user", method = RequestMethod.POST)
-    public ModelAndView enableUser(
-            @RequestParam(value = "user-id") String enableUserId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            String userId = userDetail.getUsername();
-            UserDao userDao = (UserDao) context.getBean("userDao");
-            userDao.enableUser(Integer.parseInt(enableUserId));
-            model.setViewName("redirect:/admin?page=user-disable");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-enable-user")
+    public String enableUser(@RequestParam("user-id") int userId) {
+        userService.setEnabled(userId, true);
+        return "redirect:/admin?page=user-disable";
     }
 
-
-    @RequestMapping(value = "/admin-clear-all-article-comment", method = RequestMethod.POST)
-    public ModelAndView clearAllArticleComment(
-            @RequestParam(value = "user-id") String clearInfoUserId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            String userId = userDetail.getUsername();
-            CommentDao commentDao = (CommentDao) context.getBean("commentDao");
-            commentDao.deleteAllCommentByUserId(Integer.parseInt(clearInfoUserId));
-
-            ArticleDao articleDao = (ArticleDao) context.getBean("articleDao");
-            articleDao.deleteAllArticleByAuthorId(Integer.parseInt(clearInfoUserId));
-
-            model.setViewName("redirect:/admin?page=user-disable");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-clear-all-article-comment")
+    public String clearAll(@RequestParam("user-id") int userId) {
+        articleService.deleteEverythingOf(userId);
+        return "redirect:/admin?page=user-disable";
     }
 
-
-    @RequestMapping(value = "/admin-delete-article-by-id", method = RequestMethod.POST)
-    public ModelAndView deleteArticleById(
-            @RequestParam(value = "article-id") String articleId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-
-            ArticleDao articleDao = (ArticleDao) context.getBean("articleDao");
-            articleDao.deleteArticleById(Integer.parseInt(articleId));
-
-            model.setViewName("redirect:/admin?page=article");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-delete-article-by-id")
+    public String deleteArticle(@RequestParam("article-id") int articleId) {
+        User admin = currentUser.require();
+        articleService.delete(articleId, admin);
+        return "redirect:/admin?page=article";
     }
 
-
-    @RequestMapping(value = "/admin-delete-comment-by-id", method = RequestMethod.POST)
-    public ModelAndView deleteCommentById(
-            @RequestParam(value = "comment-id") String commentId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            CommentDao commentDao = (CommentDao) context.getBean("commentDao");
-            commentDao.deleteCommentById(Integer.parseInt(commentId));
-
-            model.setViewName("redirect:/admin?page=comment");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-delete-comment-by-id")
+    public String deleteComment(@RequestParam("comment-id") int commentId) {
+        User admin = currentUser.require();
+        commentService.delete(commentId, admin);
+        return "redirect:/admin?page=comment";
     }
 
-
-    @RequestMapping(value = "/admin-add-catalog", method = RequestMethod.POST)
-    public ModelAndView addCatalog(
-            @RequestParam(value = "parent-catalog-id") String parentCatalogId,
-            @RequestParam(value = "sub-catalog-name") String subCatalogName
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            CatalogDao catalogDao = (CatalogDao) context.getBean("catalogDao");
-            catalogDao.addCatalog(subCatalogName, Integer.parseInt(parentCatalogId));
-            System.out.println(subCatalogName);
-            model.setViewName("redirect:/admin?page=catalog");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-add-catalog")
+    public String addCatalog(@RequestParam("parent-catalog-id") int parentCatalogId,
+                             @RequestParam("sub-catalog-name") String name) {
+        catalogService.add(parentCatalogId, name);
+        return "redirect:/admin?page=catalog";
     }
 
-    @RequestMapping(value = "/admin-rename-catalog", method = RequestMethod.POST)
-    public ModelAndView renameCatalog(
-            @RequestParam(value = "catalog-id") String catalogId,
-            @RequestParam(value = "catalog-name") String catalogName
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            CatalogDao catalogDao = (CatalogDao) context.getBean("catalogDao");
-            catalogDao.renameCatalog(Integer.parseInt(catalogId), catalogName);
-
-            model.setViewName("redirect:/admin?page=catalog");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-rename-catalog")
+    public String renameCatalog(@RequestParam("catalog-id") int catalogId,
+                                @RequestParam("catalog-name") String name) {
+        catalogService.rename(catalogId, name);
+        return "redirect:/admin?page=catalog";
     }
 
-    @RequestMapping(value = "/admin-delete-catalog-by-id", method = RequestMethod.POST)
-    public ModelAndView deleteCatalogById(
-            @RequestParam(value = "catalog-id") String catalogId
-    ) {
-        ModelAndView model = new ModelAndView();
-        //检查用户是否已经登录
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            ApplicationContext context = null;
-            context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-            CatalogDao catalogDao = (CatalogDao) context.getBean("catalogDao");
-            Catalog catalog = catalogDao.selectCatalogById(Integer.parseInt(catalogId));
-            Catalog parentCatalog = catalogDao.selectCatalogById(catalog.getParentId());
-            ArticleDao articleDao = (ArticleDao) context.getBean("articleDao");
-            articleDao.changeCatalog(catalog.getId(), parentCatalog.getId(), parentCatalog.getName());
-
-            catalogDao.deleteCatalogById(Integer.parseInt(catalogId));
-
-            model.setViewName("redirect:/admin?page=catalog");
-        } else {
-            model.setViewName("redirect:/login?notlogin");
-        }
-        return model;
+    @PostMapping("/admin-delete-catalog-by-id")
+    public String deleteCatalog(@RequestParam("catalog-id") int catalogId) {
+        catalogService.delete(catalogId);
+        return "redirect:/admin?page=catalog";
     }
 }

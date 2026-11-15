@@ -1,16 +1,21 @@
 package cn.net.wangshifu.dao;
 
 import cn.net.wangshifu.model.AdminApply;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface AdminApplyDao {
 
-    List<AdminApply> selectAdminApply();
+    List<AdminApply> selectAll();
 
-    void addAdminApply(int userId);
+    int countByUserId(int userId);
 
-    int hadApplyAdmin(int userId);
+    void insertApply(@Param("userId") int userId, @Param("userName") String userName);
 
-    void deleteAdminApply(int userId);
+    void touchApply(int userId);
+
+    void deleteByUserId(int userId);
 }

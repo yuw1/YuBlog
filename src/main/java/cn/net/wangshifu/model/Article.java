@@ -1,17 +1,19 @@
 package cn.net.wangshifu.model;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class Article {
-    int id;
-    String title;
-    String content;
-    int authorId;
-    String authorUsername;
-    Timestamp lastModified;
-    String articleAbstract;
-    int catalogId;
-    String catalogName;
+public class Article implements Serializable {
+    private int id;
+    private String title;
+    private String content;
+    private String articleAbstract;
+    private int authorId;
+    private String authorUsername;
+    private int catalogId;
+    private String catalogName;
+    private LocalDateTime lastModified;
 
     public int getId() {
         return id;
@@ -37,6 +39,14 @@ public class Article {
         this.content = content;
     }
 
+    public String getArticleAbstract() {
+        return articleAbstract;
+    }
+
+    public void setArticleAbstract(String articleAbstract) {
+        this.articleAbstract = articleAbstract;
+    }
+
     public int getAuthorId() {
         return authorId;
     }
@@ -51,22 +61,6 @@ public class Article {
 
     public void setAuthorUsername(String authorUsername) {
         this.authorUsername = authorUsername;
-    }
-
-    public Timestamp getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(Timestamp lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public String getArticleAbstract() {
-        return articleAbstract;
-    }
-
-    public void setArticleAbstract(String articleAbstract) {
-        this.articleAbstract = articleAbstract;
     }
 
     public int getCatalogId() {
@@ -85,18 +79,16 @@ public class Article {
         this.catalogName = catalogName;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", authorId=" + authorId +
-                ", authorUsername='" + authorUsername + '\'' +
-                ", lastModified=" + lastModified +
-                ", articleAbstract='" + articleAbstract + '\'' +
-                ", catalogId=" + catalogId +
-                ", catalogName='" + catalogName + '\'' +
-                '}';
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    /** Rendered by the templates; avoids printing {@code LocalDateTime.toString()}. */
+    public String getLastModifiedText() {
+        return lastModified == null ? "" : lastModified.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }

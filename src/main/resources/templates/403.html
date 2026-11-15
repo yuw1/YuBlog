@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('403 没有权限')}"></head>
+<body>
+<div class="auth" style="grid-template-columns:minmax(0,1fr)">
+    <section class="auth__form">
+        <div class="auth__box" style="text-align:center">
+            <h1 class="gradient-text" style="font-size:clamp(64px,14vw,120px);line-height:1">403</h1>
+            <h2 class="auth__title" style="margin-top:8px">这里需要更高的权限</h2>
+            <p class="auth__hint">你的账号没有访问这个页面的权限。如果觉得不对，联系站长开通。</p>
+            <div style="display:flex;gap:8px;justify-content:center">
+                <a class="btn btn--primary" href="/">回到首页</a>
+                <a class="btn" href="/blog">去看看文章</a>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="/js/yublog.js"></script>
+</body>
+</html>

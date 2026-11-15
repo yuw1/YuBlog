@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.wangshifu.dao.ArticleDao">
+
+    <resultMap id="articleMap" type="cn.net.wangshifu.model.Article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="article_abstract" property="articleAbstract"/>
+        <result column="author_id" property="authorId"/>
+        <result column="author_username" property="authorUsername"/>
+        <result column="catalog_id" property="catalogId"/>
+        <result column="catalog_name" property="catalogName"/>
+        <result column="last_modified" property="lastModified"/>
+    </resultMap>
+
+    <sql id="listColumns">
+        id, title, article_abstract, author_id, author_username, catalog_id, catalog_name, last_modified
+    </sql>
+
+    <insert id="insertArticle" parameterType="cn.net.wangshifu.model.Article"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO article(title, content, article_abstract, author_id, author_username,
+                            catalog_id, catalog_name, last_modified)
+        VALUES (#{title}, #{content}, #{articleAbstract}, #{authorId}, #{authorUsername},
+                #{catalogId}, #{catalogName}, CURRENT_TIMESTAMP)
+    </insert>
+
+    <select id="selectArticleById" parameterType="int" resultMap="articleMap">
+        SELECT id, title, content, article_abstract, author_id, author_username,
+               catalog_id, catalog_name, last_modified
+        FROM article WHERE id = #{id}
+    </select>
+
+    <select id="selectArticleByAuthorId" parameterType="int" resultMap="articleMap">
+        SELECT <include refid="listColumns"/> FROM article WHERE author_id = #{authorId}
+        ORDER BY last_modified DESC, id DESC
+    </select>
+
+    <select id="selectArticleByCatalogIds" resultMap="articleMap">
+        SELECT <include refid="listColumns"/> FROM article WHERE catalog_id IN
+        <foreach item="item" collection="catalogIds" open="(" separator="," close=")">#{item}</foreach>
+        ORDER BY last_modified DESC, id DESC
+    </select>
+
+    <select id="selectAllArticle" resultMap="articleMap">
+        SELECT <include refid="listColumns"/> FROM article ORDER BY last_modified DESC, id DESC
+    </select>
+
+    <select id="selectAuthorId" parameterType="int" resultType="java.lang.Integer">
+        SELECT author_id FROM article WHERE id = #{articleId}
+    </select>
+
+    <select id="countByCatalogId" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM article WHERE catalog_id = #{catalogId}
+    </select>
+
+    <delete id="deleteArticleById" parameterType="int">
+        DELETE FROM article WHERE id = #{articleId}
+    </delete>
+
+    <delete id="deleteByAuthorId" parameterType="int">
+        DELETE FROM article WHERE author_id = #{authorId}
+    </delete>
+
+    <update id="updateAuthorUsername">
+        UPDATE article SET author_username = #{username} WHERE author_id = #{authorId}
+    </update>
+
+    <update id="reassignCatalog">
+        UPDATE article SET catalog_id = #{newCatalogId}, catalog_name = #{newCatalogName},
+                           last_modified = CURRENT_TIMESTAMP
+        WHERE catalog_id = #{catalogId}
+    </update>
+</mapper>

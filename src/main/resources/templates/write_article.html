@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('写文章')}"></head>
+<body>
+<div th:replace="~{fragments :: topbar('write')}"></div>
+
+<main class="shell">
+    <div class="page-head">
+        <div>
+            <h1>写文章</h1>
+            <p>正文是 HTML，发布时服务端会做白名单过滤；右侧实时预览。</p>
+        </div>
+        <span class="badge">作者 <span th:text="${username}">alice</span></span>
+    </div>
+
+    <div class="alert alert--error" th:if="${error != null}" style="margin-bottom:18px" th:text="${error}"></div>
+
+    <form id="editor" class="editor-grid" method="post" action="/publish" data-editor>
+        <div class="editor-pane">
+            <div class="card">
+                <div class="card__body form-grid">
+                    <div class="field">
+                        <label for="title-text">标题</label>
+                        <input class="input" id="title-text" name="title-text" maxlength="120" required
+                               th:value="${titleDraft}" placeholder="给文章起个名字">
+                    </div>
+                    <div class="field">
+                        <label for="article-abstract">摘要</label>
+                        <input class="input" id="article-abstract" name="article-abstract" maxlength="300"
+                               th:value="${abstractDraft}" placeholder="一句话说明这篇文章">
+                    </div>
+                    <div class="field">
+                        <label for="article-catalog">目录</label>
+                        <div style="display:flex;gap:8px">
+                            <input class="input" id="article-catalog" name="article-catalog"
+                                   th:value="${defaultCatalogName}" readonly>
+                            <input type="hidden" id="article-catalog-id" name="article-catalog-id"
+                                   th:value="${defaultCatalogId}">
+                            <button type="button" class="btn" data-catalog-open>更换</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="editor-toolbar">
+                <button id="add-abstract" type="button" class="chip">摘要段</button>
+                <button id="add-paragraph" type="button" class="chip">段落</button>
+                <button id="add-blockquote" type="button" class="chip">引用</button>
+                <button id="add-h2-title" type="button" class="chip">二级标题</button>
+                <button id="add-h3-title" type="button" class="chip">三级标题</button>
+                <button id="add-hr" type="button" class="chip">分割线</button>
+            </div>
+
+            <div class="field">
+                <label for="content-text">正文</label>
+                <textarea class="textarea mono" id="content-text" name="content-text" rows="16"
+                          data-autogrow required th:text="${contentDraft}"
+                          placeholder="&lt;p&gt;开始写…&lt;/p&gt;"></textarea>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;gap:8px">
+                <a class="btn btn--ghost" href="/blog">取消</a>
+                <button class="btn btn--primary" type="submit">发表文章</button>
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </div>
+
+        <aside class="preview">
+            <div class="preview__label">
+                <span>实时预览</span>
+                <span class="mono" data-preview-catalog></span>
+            </div>
+            <h1 class="article__title" style="font-size:28px" data-preview-title>未命名文章</h1>
+            <p class="mono dim" style="margin-top:10px" data-preview-author th:text="${username}">作者</p>
+            <div class="prose" style="padding-top:20px;font-size:16px" data-preview-body></div>
+        </aside>
+    </form>
+</main>
+
+<dialog class="modal" data-catalog-dialog>
+    <div class="modal__head">
+        <strong>选择目录</strong>
+        <button type="button" class="btn btn--icon btn--ghost" data-catalog-close aria-label="关闭">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round">
+                <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+    <div class="modal__body">
+        <nav class="cat-tree" aria-label="目录">
+            <th:block th:if="${catalogRoot != null and catalogRoot.id != 0}">
+                <th:block th:replace="~{fragments :: catPick(${catalogRoot})}"></th:block>
+            </th:block>
+            <div class="empty" th:if="${catalogRoot == null or catalogRoot.id == 0}">
+                还没有分类，先让管理员建一个
+            </div>
+        </nav>
+    </div>
+    <div class="modal__foot">
+        <button type="button" class="btn" data-catalog-close>关闭</button>
+    </div>
+</dialog>
+
+<div th:replace="~{fragments :: footer}"></div>
+<script src="/js/editor.js"></script>
+</body>
+</html>

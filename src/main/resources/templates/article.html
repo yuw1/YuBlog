@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${title})}"></head>
+<body>
+<div class="progress" data-progress></div>
+<div th:replace="~{fragments :: topbar('blog')}"></div>
+
+<main class="shell layout--narrow" style="padding-bottom:72px">
+    <div class="alert alert--ok" style="margin-top:22px" th:if="${msg != null}" th:text="${msg}"></div>
+
+    <article class="article">
+        <header class="article__head">
+            <a class="badge badge--accent" th:href="@{/blog(catalogId=${catalogId})}"
+               th:text="${catalogName}">分类</a>
+            <h1 class="article__title" th:text="${title}">标题</h1>
+            <div class="article__meta">
+                <img class="avatar" th:src="${authorPic}" alt="">
+                <a th:href="@{/user(userId=${authorId})}" th:text="${authorUsername}">作者</a>
+                <span class="dim">·</span>
+                <span class="mono" th:text="${lastModified}">2026-01-01 00:00</span>
+                <span class="dim">·</span>
+                <span th:text="${#lists.size(comments)} + ' 条评论'">0 条评论</span>
+
+                <form th:if="${isOwn} == 'true'" action="/delete-article-by-id" method="post"
+                      style="margin-left:auto" onsubmit="return confirm('确定删除这篇文章？');">
+                    <input type="hidden" name="article-id" th:value="${articleId}">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button type="submit" class="btn btn--sm btn--danger">删除</button>
+                </form>
+            </div>
+        </header>
+
+        <!-- 正文已经在 ArticleService 里做过 HTML 白名单过滤 -->
+        <div class="prose" data-progress-target th:utext="${content}">正文</div>
+    </article>
+
+    <section class="comments">
+        <div class="comments__title">
+            <h2 style="font-size:16px">评论</h2>
+            <span class="badge" th:text="${#lists.size(comments)}">0</span>
+        </div>
+
+        <div class="comment" th:each="comment : ${comments}">
+            <img class="avatar" th:src="${comment.userPic}" alt="">
+            <div class="comment__main">
+                <div class="comment__head">
+                    <a class="comment__author" th:href="@{/user(userId=${comment.userId})}"
+                       th:text="${comment.username}">用户</a>
+                    <span class="mono" th:text="${comment.lastModifiedText}">2026-01-01 00:00</span>
+                </div>
+                <div class="comment__body" th:text="${comment.comment}">评论内容</div>
+            </div>
+        </div>
+
+        <div class="empty" th:if="${#lists.isEmpty(comments)}">
+            <strong>还没有评论</strong>
+            <span>来写第一条。</span>
+        </div>
+
+        <form class="comment-form card" action="/comment" method="post">
+            <div class="card__body form-grid">
+                <input type="hidden" name="article_id" th:value="${articleId}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div class="field">
+                    <label for="comment_text">写下你的评论</label>
+                    <textarea class="textarea" id="comment_text" name="comment_text" rows="4" maxlength="2000"
+                              required placeholder="说点什么…"></textarea>
+                </div>
+                <div style="display:flex;justify-content:flex-end">
+                    <button type="submit" class="btn btn--primary">发表评论</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

@@ -1,11 +1,15 @@
 package cn.net.wangshifu.model;
 
-public class User {
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+public class User implements Serializable {
     private int id;
     private String username;
-    private String password;
+    private String passwordHash;
     private String userPic;
-    private int adminApply;
+    private boolean enabled;
+    private LocalDateTime lastModified;
 
     public int getId() {
         return id;
@@ -23,12 +27,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getUserPic() {
@@ -39,23 +43,25 @@ public class User {
         this.userPic = userPic;
     }
 
-    public int getAdminApply() {
-        return adminApply;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setAdminApply(int adminApply) {
-        this.adminApply = adminApply;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", userPic='" + userPic + '\'' +
-                ", adminApply=" + adminApply +
-                '}';
+        // never print the password hash
+        return "User{id=" + id + ", username='" + username + "', userPic='" + userPic + "'}";
     }
-
 }

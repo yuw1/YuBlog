@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('出错了')}"></head>
+<body>
+<div class="auth" style="grid-template-columns:minmax(0,1fr)">
+    <section class="auth__form">
+        <div class="auth__box" style="text-align:center">
+            <h1 class="gradient-text" style="font-size:clamp(56px,12vw,104px);line-height:1"
+                th:text="${status} ?: '错误'">500</h1>
+            <h2 class="auth__title" style="margin-top:8px">请求没能完成</h2>
+            <p class="auth__hint" th:text="${message} ?: '服务器开小差了，请稍后再试。'">
+                服务器开小差了，请稍后再试。
+            </p>
+            <div style="display:flex;gap:8px;justify-content:center">
+                <a class="btn btn--primary" href="/">回到首页</a>
+                <a class="btn" href="/blog">去看看文章</a>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="/js/yublog.js"></script>
+</body>
+</html>

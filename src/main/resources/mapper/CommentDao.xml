@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.wangshifu.dao.CommentDao">
+
+    <resultMap id="commentMap" type="cn.net.wangshifu.model.Comment">
+        <id column="id" property="id"/>
+        <result column="content" property="comment"/>
+        <result column="article_id" property="articleId"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="author" property="author"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="user_pic" property="userPic"/>
+        <result column="last_modified" property="lastModified"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, content, article_id, article_title, author, user_id, username, user_pic, last_modified
+    </sql>
+
+    <insert id="insertComment" parameterType="cn.net.wangshifu.model.Comment"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comment(content, article_id, article_title, author, user_id, username,
+                            user_pic, last_modified)
+        VALUES (#{comment}, #{articleId}, #{articleTitle}, #{author}, #{userId}, #{username},
+                #{userPic}, CURRENT_TIMESTAMP)
+    </insert>
+
+    <select id="selectByArticleId" parameterType="int" resultMap="commentMap">
+        SELECT <include refid="columns"/> FROM comment WHERE article_id = #{articleId}
+        ORDER BY last_modified DESC, id DESC
+    </select>
+
+    <select id="selectByUserId" parameterType="int" resultMap="commentMap">
+        SELECT <include refid="columns"/> FROM comment WHERE user_id = #{userId}
+        ORDER BY last_modified DESC, id DESC
+    </select>
+
+    <select id="selectAll" resultMap="commentMap">
+        SELECT <include refid="columns"/> FROM comment ORDER BY last_modified DESC, id DESC
+    </select>
+
+    <select id="selectUserId" parameterType="int" resultType="java.lang.Integer">
+        SELECT user_id FROM comment WHERE id = #{commentId}
+    </select>
+
+    <update id="updateCommenterName">
+        UPDATE comment SET username = #{username} WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateCommenterPic">
+        UPDATE comment SET user_pic = #{userPic} WHERE user_id = #{userId}
+    </update>
+
+    <delete id="deleteCommentsOnArticlesOf">
+        DELETE FROM comment WHERE article_id IN (SELECT id FROM article WHERE author_id = #{authorId})
+    </delete>
+
+    <delete id="deleteCommentById" parameterType="int">
+        DELETE FROM comment WHERE id = #{commentId}
+    </delete>
+
+    <delete id="deleteByArticleId" parameterType="int">
+        DELETE FROM comment WHERE article_id = #{articleId}
+    </delete>
+
+    <delete id="deleteByUserId" parameterType="int">
+        DELETE FROM comment WHERE user_id = #{userId}
+    </delete>
+</mapper>
